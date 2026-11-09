@@ -1,25 +1,35 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { createServerClient } from '@supabase/ssr';
 import {
-  canonicalHostTarget, isProtectedPath, requiresSession, securityHeaders, shouldRedirectToHttps, NOINDEX_HEADER,
+  canonicalHostTarget,
+  isProtectedPath,
+  requiresSession,
+  securityHeaders,
+  shouldRedirectToHttps,
+  NOINDEX_HEADER,
 } from '@/lib/core/security/edge';
 
 const SESSION_COOKIE = 'ucip_session';
 const ENFORCE_HTTPS = process.env.ENFORCE_HTTPS === 'true';
 const CANONICAL_HOST = process.env.CANONICAL_HOST || '';
 
-/**
- * Edge middleware: transport security, canonical host, private-route gating and
- * security headers. The session cookie is only checked for presence here — the
- * authoritative validation happens server-side in app/(app)/layout.tsx.
- */
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
   const host = req.headers.get('host');
 
-  const redirectTarget = canonicalHostTarget(host, CANONICAL_HOST, pathname, search);
-  if (redirectTarget) return NextResponse.redirect(redirectTarget, 308);
+  const redirectTarget = canonicalHostTarget(
+    host,
+    CANONICAL_HOST,
+    pathname,
+    search
+  );
+
+  if (redirectTarget) {
+    return NextResponse.redirect(redirectTarget, 308);
+  }
 
   const forwardedProto = req.headers.get('x-forwarded-proto');
+
   if (shouldRedirectToHttps(forwardedProto, ENFORCE_HTTPS, host)) {
     const url = req.nextUrl.clone();
     url.protocol = 'https:';
@@ -27,21 +37,72 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
-  if (requiresSession(pathname) && !req.cookies.get(SESSION_COOKIE)?.value) {
+  let response = NextResponse.next({ request: req });
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return req.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) => {
+            req.cookies.set(name, value);
+          });
+
+          response = NextResponse.next({ request: req });
+
+          cookiesToSet.forEach(({ name, value, options }) => {
+            response.cookies.set(name, value, options);
+          });
+        },
+      },
+    }
+  );
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const hasDemoSession = Boolean(
+    req.cookies.get(SESSION_COOKIE)?.value
+  );
+
+  if (requiresSession(pathname) && !hasDemoSession && !user) {
     const url = req.nextUrl.clone();
     url.pathname = '/login';
     url.search = `?next=${encodeURIComponent(pathname)}`;
-    return NextResponse.redirect(url, 307);
+
+    const redirectResponse = NextResponse.redirect(url, 307);
+
+    response.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie);
+    });
+
+    return redirectResponse;
   }
 
-  const res = NextResponse.next();
-  const isHttps = forwardedProto === 'https' || req.nextUrl.protocol === 'https:';
-  for (const [key, value] of Object.entries(securityHeaders(isHttps))) res.headers.set(key, value);
-  if (isProtectedPath(pathname)) for (const [key, value] of Object.entries(NOINDEX_HEADER)) res.headers.set(key, value);
-  return res;
+  const isHttps =
+    forwardedProto === 'https' ||
+    req.nextUrl.protocol === 'https:';
+
+  for (const [key, value] of Object.entries(securityHeaders(isHttps))) {
+    response.headers.set(key, value);
+  }
+
+  if (isProtectedPath(pathname)) {
+    for (const [key, value] of Object.entries(NOINDEX_HEADER)) {
+      response.headers.set(key, value);
+    }
+  }
+
+  return response;
 }
 
 export const config = {
-  // Skip Next internals, static assets, the icon and the OG image routes.
-  matcher: ['/((?!_next/static|_next/image|favicon.svg|opengraph-image|robots.txt|sitemap.xml).*)'],
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.svg|opengraph-image|robots.txt|sitemap.xml).* )',
+  ],
 };

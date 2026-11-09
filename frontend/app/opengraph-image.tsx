@@ -6,7 +6,7 @@ import { SITE } from '@/lib/site';
  * more specific card. Generated at build/request time — no binary asset to keep in
  * sync with the brand.
  */
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 export const alt = `${SITE.legalName} — ${SITE.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
