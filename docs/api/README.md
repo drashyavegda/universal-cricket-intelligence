@@ -2,7 +2,7 @@
 
 | Document | Contents |
 | --- | --- |
-| [API_REFERENCE.md](API_REFERENCE.md) | All 44 route handlers: method, path, permission, request, response, errors |
+| [API_REFERENCE.md](API_REFERENCE.md) | All 46 route handlers: method, path, permission, request, response, errors |
 | [AUTHENTICATION.md](AUTHENTICATION.md) | Sessions, cookies, 2FA, roles, how to call the API from curl |
 | [ERROR_CODES.md](ERROR_CODES.md) | Error envelope, status mapping, code catalogue |
 

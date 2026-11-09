@@ -1,16 +1,19 @@
 {
-  "name": "@ucip/frontend",
-  "version": "1.1.0",
+  "name": "universal-cricket-intelligence-platform",
+  "version": "1.0.0",
   "private": true,
-  "description": "UCIP Next.js frontend (phase-5 split target). Today the app is served from the repository root; this manifest documents the exact dependency set.",
-  "//": "Do NOT install this workspace before the phase-5 move. Versions mirror the app's current, tested package.json — keep them in lockstep or the two manifests will drift.",
+  "description": "Universal Cricket Intelligence Platform \u2014 Next.js 14 application: public site, private analytics workspace, 45 API route handlers, deterministic analytics engine.",
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p 3000",
+    "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "smoke": "node ../scripts/smoke.mjs"
+    "test:watch": "vitest",
+    "seed": "tsx scripts/seed.ts",
+    "smoke": "node scripts/smoke.mjs",
+    "test:py": "cd ../services/analytics && python -m pytest -q"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -31,9 +34,9 @@
   },
   "devDependencies": {
     "@types/node": "20.16.5",
-    "@types/papaparse": "5.3.14",
     "@types/react": "18.3.5",
     "@types/react-dom": "18.3.0",
+    "@types/papaparse": "5.3.14",
     "autoprefixer": "10.4.20",
     "postcss": "8.4.47",
     "tailwindcss": "3.4.13",
@@ -41,5 +44,7 @@
     "typescript": "5.6.2",
     "vitest": "2.1.1"
   },
-  "engines": { "node": ">=20.11" }
+  "engines": {
+    "node": ">=20.11"
+  }
 }

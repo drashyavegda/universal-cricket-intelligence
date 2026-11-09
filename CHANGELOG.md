@@ -1,3 +1,35 @@
+## [1.2.0] — 2026-11-09 — Monorepo layout + Vercel fix + FastAPI connection
+
+### Fixed
+- **Vercel:** `Couldn't find any pages or app directory` — the repository root contained only
+  documentation. The Next.js application now lives in `frontend/` and Vercel must use
+  **Root Directory = `frontend`** (documented in `docs/deployment/VERCEL.md`).
+- Root `package.json` no longer pretends to build a Next.js app that is not at the root: it is a
+  workspace manifest that delegates every script to `frontend/`.
+
+### Added
+- `frontend/` now contains the real application: `app/`, `components/`, `lib/`, `public/`,
+  `types/`, `tests/`, `sample-data/`, `middleware.ts`, `next.config.mjs`, `tsconfig.json`,
+  `tailwind.config.ts`, `vitest.config.ts`, `package.json`, `package-lock.json`, `vercel.json`.
+- **FastAPI connection (NEXT_PUBLIC_API_URL)**:
+  `lib/api/backend.ts` (config parsing, 4 s timeout, typed error classification
+  `not_configured | timeout | unreachable | http_error | invalid_response`),
+  `GET /api/service/status`, `POST /api/service/describe`,
+  `components/service-status.tsx` (loading / error / not-configured / connected states),
+  `/system` page ("Service Status" in the sidebar) and a compact card on `/dashboard`.
+- Server-side-only calls to FastAPI: the browser never talks to Render, so the service token stays
+  server-side and CORS only applies between servers.
+- Labelled local fallback: if FastAPI cannot answer, the probe says `local-fallback` and prints the
+  failure — never a remote-looking result computed locally.
+- `tests/backend-service.test.ts` — 17 tests for configuration, error classification, token handling
+  and the "never throws" guarantee.
+
+### Changed
+- Test count 151 → **168** (11 files); API routes 44 → **46**; build routes 34 → **35**;
+  pages 29 → **30**; layouts 25 → **26**. All documentation figures updated.
+- `Dockerfile` and `docker-compose.yml` build from `frontend/` and pass `NEXT_PUBLIC_API_URL`.
+- `scripts/verify.sh` checks `frontend/node_modules` and delegates through the workspace scripts.
+
 # Changelog
 
 All notable changes to this project are documented here.
@@ -32,8 +64,8 @@ application. **No application behaviour changed by this package.**
 - Shell scripts under `scripts/{development,deployment,database,testing,maintenance}`.
 
 ### Verified
-- 44 API routes, 29 pages, 25 layouts, 40 `lib/core` modules enumerated and mapped.
-- Existing test suite status recorded: 151 TypeScript tests, 11 Python tests, 58 smoke checks,
+- 44 API routes, 30 pages, 26 layouts, 40 `lib/core` modules enumerated and mapped.
+- Existing test suite status recorded: 168 TypeScript tests, 15 Python tests, 58 smoke checks,
   clean `tsc --noEmit`, successful production build.
 - JSON/YAML/TOML syntax of every generated config validated; no duplicate or conflicting paths
   with the existing repository (see `MIGRATION_MAP.md`).

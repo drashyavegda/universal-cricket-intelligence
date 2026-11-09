@@ -53,6 +53,9 @@ Legend — **R** required in production · **O** optional · **S** secret (serve
 | --- | --- | --- | --- |
 | `BACKEND_ENV`, `BACKEND_LOG_LEVEL` | O | — | `production`, `info` |
 | `BACKEND_CORS_ORIGINS` | **R** | — | exact origins, comma-separated, no wildcard in production |
+| `NEXT_PUBLIC_API_URL` | no | — | FastAPI (Render) origin. **Public** — inlined into the browser bundle at build time. Origin only, no trailing slash. Local: `http://localhost:8000`. |
+| `ANALYTICS_SERVICE_TOKEN` | no | — | Shared bearer token for FastAPI. **Secret** — server-only, must match the Render value. |
+| `BACKEND_TIMEOUT_MS` | no | `4000` | Timeout for `/api/service/status` and `/api/service/describe`. |
 | `ANALYTICS_SERVICE_URL` | O | — | how the web app reaches the service |
 | `ANALYTICS_SERVICE_TOKEN` | O | **S** | shared bearer secret for service-to-service calls |
 | `ANALYTICS_TIMEOUT_MS` | O | — | fallback-to-local threshold (default 8000) |

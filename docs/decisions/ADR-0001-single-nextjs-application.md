@@ -18,7 +18,7 @@ guesswork, and keep the optional Python compute service (`services/analytics`).
 
 ## Consequences
 * Faster delivery, one build, one deploy, shared TypeScript types end to end.
-* No network hop between UI and analytics; the whole app is testable in-process (151 tests).
+* No network hop between UI and analytics; the whole app is testable in-process (168 tests).
 * Serverless body limits and ephemeral disks become real constraints (documented in
   `docs/deployment/TROUBLESHOOTING.md`).
 * The split remains available as a phase-5 refactor with a reversible checklist.

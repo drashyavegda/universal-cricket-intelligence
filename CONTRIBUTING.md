@@ -21,7 +21,7 @@ Requirements: Node 20.20.2+, npm 10.8+, Python 3.11+ (3.13 tested). No paid serv
 
 ```bash
 npm run typecheck            # tsc --noEmit, strict
-npm test                     # vitest (151 tests today)
+npm test                     # vitest (168 tests today)
 npm run test:py              # pytest in services/analytics
 npm run build                # next build must succeed
 npm run smoke                # against a running `npm start`

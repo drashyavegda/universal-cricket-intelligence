@@ -8,13 +8,13 @@
         ├───────────────────────────┤
         │ integration (API routes)  │  vitest, in-process route handlers + store
         ├───────────────────────────┤
-        │ unit (engines, helpers)   │  vitest (151) + pytest (11)
+        │ unit (engines, helpers)   │  vitest (168) + pytest (15)
         └───────────────────────────┘
 ```
 
 | Layer | Tool | Location | Count | Runtime |
 | --- | --- | --- | --- | --- |
-| Unit / integration (TS) | Vitest 2.1 | `tests/*.test.ts` (10 files) | 151 | ~13 s |
+| Unit / integration (TS) | Vitest 2.1 | `tests/*.test.ts` (10 files) | 168 | ~13 s |
 | Python compute | pytest 8.3 | `services/analytics/tests/` | 11 | ~0.1 s |
 | End-to-end API + page | Node script | `scripts/smoke.mjs` | 58 | ~2 s |
 | Type safety | tsc strict | whole project | 0 errors | ~8 s |

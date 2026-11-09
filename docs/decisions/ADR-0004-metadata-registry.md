@@ -4,7 +4,7 @@
 * Date: 2026-11-09
 
 ## Context
-The site needed unique titles and descriptions for 29 pages, plus correct Open Graph inheritance.
+The site needed unique titles and descriptions for 30 pages, plus correct Open Graph inheritance.
 Next merges metadata per field, so a page that overrides `openGraph` silently loses the inherited
 share image. Duplicate descriptions are the most common SEO defect and are invisible without a check.
 

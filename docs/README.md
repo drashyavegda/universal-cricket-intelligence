@@ -12,12 +12,12 @@ document is missing here, it does not exist — this index is kept complete on p
 | Project blueprint | [`../PROJECT_BLUEPRINT.md`](../PROJECT_BLUEPRINT.md) | how the package maps onto the existing codebase |
 | Architecture | [`../ARCHITECTURE.md`](../ARCHITECTURE.md) | layers, module map, request lifecycle, seams |
 | Roadmap | [`../ROADMAP.md`](../ROADMAP.md) | phases 1–6, what exists, what is planned |
-| API documentation | [`api/API_REFERENCE.md`](api/API_REFERENCE.md) | all 44 routes, payloads, errors, auth |
+| API documentation | [`api/API_REFERENCE.md`](api/API_REFERENCE.md) | all 46 routes, payloads, errors, auth |
 | Database schema | [`database/SCHEMA_REFERENCE.md`](database/SCHEMA_REFERENCE.md) | entities, relationships, indexes, JSON-store mapping |
-| Deployment | [`deployment/README.md`](deployment/README.md) | local, Docker, Vercel, Render, Supabase |
+| Deployment | [`deployment/README.md`](deployment/README.md) | local, Docker, Vercel (Root Directory = `frontend`), Render, Supabase |
 | Environment variables | [`deployment/ENVIRONMENT_VARIABLES.md`](deployment/ENVIRONMENT_VARIABLES.md) | every variable, default, whether it is client-exposed |
 | Security | [`security/SECURITY_PRACTICES.md`](security/SECURITY_PRACTICES.md) | controls, threat model, known gaps |
-| Testing | [`testing/TEST_STRATEGY.md`](testing/TEST_STRATEGY.md) | 151 + 18 + 58 checks, what is not covered |
+| Testing | [`testing/TEST_STRATEGY.md`](testing/TEST_STRATEGY.md) | 168 + 15 + 58 checks, what is not covered |
 | Contributing | [`../CONTRIBUTING.md`](../CONTRIBUTING.md) | conventions, review gates, definition of done |
 | Changelog | [`../CHANGELOG.md`](../CHANGELOG.md) | what changed, in order, with reasons |
 

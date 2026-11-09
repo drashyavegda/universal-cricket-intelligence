@@ -17,7 +17,7 @@ produce fluent, occasionally invented, statistics. Seeded simulations also need 
    evidence — so the product is fully usable offline.
 
 ## Consequences
-* Numbers are reproducible and unit-testable (151 tests, several asserting honesty such as "no
+* Numbers are reproducible and unit-testable (168 tests, several asserting honesty such as "no
   trajectory without a season series").
 * Narration quality depends on the provider; substance does not.
 * Some "smart" features (fuzzy similarity, freeform Q&A) are deliberately constrained to the

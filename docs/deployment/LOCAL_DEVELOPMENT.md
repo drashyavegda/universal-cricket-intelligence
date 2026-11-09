@@ -49,7 +49,7 @@ rm -rf .data && npm run seed # guarantee a clean slate
 | Command | Purpose |
 | --- | --- |
 | `npm run typecheck` | strict TypeScript |
-| `npm test` | 151 vitest tests |
+| `npm test` | 168 vitest tests |
 | `npm run test:py` | backend/ pytest (phase 2) |
 | `npm run test:analytics` | existing FastAPI service tests |
 | `npm run smoke` | 58 end-to-end checks against a running build |

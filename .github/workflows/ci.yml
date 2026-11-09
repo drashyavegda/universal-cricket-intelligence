@@ -17,12 +17,17 @@ jobs:
     name: Typecheck · tests · build
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    defaults:
+      run:
+        # Vercel builds this directory (Root Directory = frontend); CI must match it.
+        working-directory: frontend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20.20.2"
           cache: npm
+          cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - name: Typecheck
         run: npm run typecheck

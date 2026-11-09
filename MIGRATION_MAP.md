@@ -35,32 +35,25 @@ Everything else in this package is additive.
 | `ROADMAP.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `LICENSE` | NEW | — |
 | `MIGRATION_MAP.md`, `PROJECT_STRUCTURE.json`, `FILES_TO_IMPLEMENT.md` | NEW | Traceability set |
 
-## 3. Application code → `frontend/`
+## 3. Application code → `frontend/` (DONE — phase 5 executed)
 
-| Target | Status | Existing source of truth |
+The Next.js application has been moved into `frontend/`. Vercel builds that directory
+(**Root Directory = `frontend`**). Nothing is left at the repository root that Next.js needs.
+
+| Target | Status | Source of truth |
 | --- | --- | --- |
-| `frontend/src/app/**` | EXISTS (mapped, not copied) | `app/**` (29 pages, 25 layouts, 44 route handlers) |
-| `frontend/src/components/common` | EXISTS | `components/ui.tsx` |
-| `frontend/src/components/layout` | EXISTS | `components/shell.tsx`, `components/public-chrome.tsx`, `components/breadcrumbs.tsx` |
-| `frontend/src/components/dashboard` | EXISTS | `app/(app)/dashboard/page.tsx`, `components/charts.tsx` |
-| `frontend/src/components/players` | EXISTS | `components/charts.tsx` (radar/trend), `app/(app)/players/**` |
-| `frontend/src/components/scouting` | EXISTS | `app/(app)/scouting/page.tsx`, `app/(app)/talent/page.tsx` |
-| `frontend/src/components/analytics` | EXISTS | `app/(app)/stats/page.tsx`, `components/charts.tsx` |
-| `frontend/src/components/auction` | EXISTS | `app/(app)/auction/page.tsx` |
-| `frontend/src/components/simulation` | EXISTS | `app/(app)/prediction/page.tsx` |
-| `frontend/src/components/reports` | EXISTS | `app/(app)/reports/page.tsx` |
-| `frontend/src/components/forms` | EXISTS | `components/contact-form.tsx`, `components/growth-admin.tsx`, `app/(app)/data/page.tsx` (upload) |
-| `frontend/src/features/<16>` | EXISTS (mapped) | see `frontend/src/features/README.md` mapping table |
-| `frontend/src/lib` | EXISTS | `lib/**` (40 core modules + client + content + site config) |
-| `frontend/src/types` | EXISTS | `lib/core/types.ts`, `types/pdf-parse.d.ts` |
-| `frontend/src/services` | EXISTS | `lib/client/api.ts` (browser API façade) |
-| `frontend/src/config` | NEW | `site.config.ts`, `routes.ts` shells that reference `lib/site.ts` |
-| `frontend/src/constants` | NEW | navigation + feature catalogue constants |
-| `frontend/src/utils` | NEW | formatting helpers not present today |
-| `frontend/src/hooks` | NEW (empty by design) | documented: hooks today live inside page components |
-| `frontend/src/stores` | NEW (empty by design) | no global store is used; server data is fetched per page |
-| `frontend/public/{images,icons,logos,fonts,favicon}` | NEW | `public/favicon.svg` exists; these folders hold future assets |
-| `frontend/public/robots.txt`, `sitemap.xml` | **Do not add** | Generated dynamically by `app/robots.ts` and `app/sitemap.ts` — static copies would conflict |
+| `frontend/app/**` (30 pages, 26 layouts, 46 route handlers) | **DONE** | moved from `app/` |
+| `frontend/components/**` | **DONE** | moved from `components/` |
+| `frontend/lib/**` (40 core modules + api/client/content/site) | **DONE** | moved from `lib/` |
+| `frontend/public/**`, `frontend/types/**` | **DONE** | moved |
+| `frontend/tests/**` (11 files, 168 tests) | **DONE** | moved |
+| `frontend/sample-data/**`, `frontend/scripts/{seed.ts,smoke.mjs}` | **DONE** | moved |
+| `frontend/middleware.ts`, `next.config.mjs`, `tsconfig.json`, `tailwind.config.ts`, `postcss.config.mjs`, `vitest.config.ts`, `next-env.d.ts` | **DONE** | moved |
+| `frontend/package.json` + `package-lock.json` | **DONE** | moved (Vercel installs here) |
+| `frontend/vercel.json` | **NEW** | per-directory Vercel config |
+| `frontend/src/**` | **NEW (docs + starters)** | layer map, 16 feature specs, asset folders, `config/routes.ts`, `constants/navigation.ts`, `utils/format.ts` |
+| `frontend/lib/api/backend.ts`, `frontend/components/service-status.tsx`, `frontend/app/(app)/system/`, `frontend/app/api/service/{status,describe}/` | **NEW** | FastAPI connection (NEXT_PUBLIC_API_URL) |
+| `services/analytics/**` | moved to repository root | phase-1 Python service, referenced by root scripts |
 
 ## 4. Python → `backend/`
 

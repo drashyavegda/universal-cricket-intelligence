@@ -1,7 +1,7 @@
 # src/app/ — route inventory
 
-The live App Router tree is at the repository root: `app/`. This is its map (29 pages, 25 layouts,
-44 route handlers). Nothing is duplicated here.
+The live App Router tree is at the repository root: `app/`. This is its map (30 pages, 26 layouts,
+46 route handlers). Nothing is duplicated here.
 
 ## Public routes (`app/(public)/`) — indexable
 | Route | File | Metadata |
@@ -30,7 +30,7 @@ and a skip link.
 Each segment has a `layout.tsx` carrying a unique title/description/canonical + `robots: {index:false}`.
 `app/(app)/layout.tsx` performs the server-side session validation and renders `components/shell.tsx`.
 
-## API handlers (`app/api/**/route.ts`) — 44 routes
+## API handlers (`app/api/**/route.ts`) — 46 routes
 
 Grouped: auth (3) · data (7) · players/intelligence (6) · team/auction/match (11) · knowledge-AI (5) ·
 reports-shortlists (7) · settings/audit/notifications (4) · public/growth (3). Full table:

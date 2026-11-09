@@ -1,31 +1,36 @@
 # =============================================================================
-# Next.js application image (frontend + BFF + analytics engine).
+# Next.js application image (public site + private workspace + BFF).
 #
-# Build context is the repository root, which is where the Next.js app lives
-# today (app/ lib/ components/ public/). After the phase-5 monorepo split, change
-# the two COPY lines marked FRONTEND-ROOT to `frontend/`.
+# The app lives in frontend/ — the same location Vercel uses as its Root Directory.
+# Build context is the repository root:
 #   docker build -t ucip-web .
 #   docker run -p 3000:3000 -e NEXT_PUBLIC_SITE_URL=http://localhost:3000 ucip-web
+#
+# Vercel does NOT use this file. It exists for local/self-hosted runs and for hosts
+# that build a container instead of a Node project.
 # =============================================================================
 FROM node:20.20.2-alpine AS deps
 WORKDIR /app
 RUN apk add --no-cache libc6-compat
-COPY package.json package-lock.json ./
+# FRONTEND-ROOT
+COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 
 FROM node:20.20.2-alpine AS builder
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
-# FRONTEND-ROOT: today the app is at the build-context root
-COPY . .
-# Public env vars are inlined at build time — pass real values or the site will
-# fall back to http://localhost:3000 in canonical/sitemap URLs.
+# FRONTEND-ROOT — everything the Next.js build needs
+COPY frontend/ ./
+# NEXT_PUBLIC_* values are inlined at build time. Pass real values or canonical/OG/
+# sitemap URLs and the API endpoint will fall back to localhost defaults.
 ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ARG NEXT_PUBLIC_CONTACT_EMAIL=hello@cricket-intelligence.example
+ARG NEXT_PUBLIC_API_URL=
 ARG NEXT_PUBLIC_GA_MEASUREMENT_ID=
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL \
     NEXT_PUBLIC_CONTACT_EMAIL=$NEXT_PUBLIC_CONTACT_EMAIL \
+    NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL \
     NEXT_PUBLIC_GA_MEASUREMENT_ID=$NEXT_PUBLIC_GA_MEASUREMENT_ID
 RUN npm run build
 

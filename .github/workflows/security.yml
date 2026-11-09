@@ -38,7 +38,7 @@ jobs:
 
       - name: No wildcard CORS anywhere
         run: |
-          if grep -rn --include="*.py" --include="*.ts" --include="*.mjs" -E 'allow_origins\s*=\s*\[\s*["'"'"']\*' .; then
+          if grep -rn --include="*.py" --include="*.ts" --include="*.mjs" -E 'allow_origins\s*=\s*\[\s*["'"'"']\*' frontend backend services; then
             echo "Wildcard CORS found — use an explicit allow-list"; exit 1
           fi
 
@@ -48,7 +48,7 @@ jobs:
           # Deliberately public keys are excluded: Turnstile SITE key, Supabase ANON key,
           # GA4 measurement id. Anything else ending in KEY/TOKEN/SECRET/PASSWORD is a bug.
           hits=$(grep -rnE "NEXT_PUBLIC_[A-Z0-9_]*(SECRET|TOKEN|PASSWORD|_KEY)" \
-                   --include="*.ts" --include="*.tsx" --include="*.mjs" . \
+                   --include="*.ts" --include="*.tsx" --include="*.mjs" frontend \
                  | grep -vE "SITE_KEY|ANON_KEY|PUBLIC_KEY|MEASUREMENT_ID" || true)
           if [ -n "$hits" ]; then
             echo "$hits"
@@ -60,9 +60,9 @@ jobs:
       - name: Every mutating API route is guarded
         run: |
           fail=0
-          for f in $(grep -rl "export async function POST\|export async function PATCH\|export async function DELETE" app/api 2>/dev/null); do
+          for f in $(grep -rl "export async function POST\|export async function PATCH\|export async function DELETE" frontend/app/api 2>/dev/null); do
             case "$f" in
-              app/api/health/*|app/api/auth/login/*|app/api/auth/me/*|app/api/public/feedback/*|app/api/public/*) continue ;;
+              frontend/app/api/health/*|frontend/app/api/auth/login/*|frontend/app/api/auth/me/*|frontend/app/api/public/*) continue ;;
             esac
             grep -qE "guard\(|requireUser\(|requireSession\(" "$f" || { echo "UNGUARDED: $f"; fail=1; }
           done

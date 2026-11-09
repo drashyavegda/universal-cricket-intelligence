@@ -14,8 +14,8 @@ Operational scripts for the target monorepo. The two that already exist at the r
 | Step | Command | Proves |
 | --- | --- | --- |
 | 1 | `npm run typecheck` | types are sound |
-| 2 | `npm test` | 151 unit/integration tests pass |
-| 3 | `npm run build` | the app compiles and 34 routes render |
+| 2 | `npm test` | 168 unit/integration tests pass |
+| 3 | `npm run build` | the app compiles and 35 routes render |
 | 4 | `npm run seed` + `npm run smoke` | the live server answers 58 checks (needs a running server) |
 | 5 | `python -m pytest` (if `backend/` is present) | 15 service tests pass |
 | 6 | secret scan | no key-like strings in tracked files |

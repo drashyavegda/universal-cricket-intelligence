@@ -11,7 +11,7 @@ npx vitest run
 npm run build
 ```
 
-Expected at v1.0/v1.1: 0 type errors · 151 vitest · 11 analytics pytest · build 34 routes + middleware.
+Expected at v1.0/v1.1: 0 type errors · 168 vitest · 11 analytics pytest · build 34 routes + middleware.
 
 ## 2. Build the artefacts
 

@@ -1,7 +1,7 @@
 # tests/
 
 Top-level test layout for the target monorepo. The **live** suites are at the repository root:
-`tests/*.test.ts` (10 files, 151 tests, vitest) and `services/analytics/tests/*` (11 pytest tests).
+`tests/*.test.ts` (10 files, 151 tests, vitest) and `services/analytics/tests/*` (15 pytest tests).
 
 ```
 tests/
@@ -15,7 +15,7 @@ tests/
 
 | Layer | Count | Runs in | Time |
 | --- | --- | --- | --- |
-| Unit + integration (vitest, in-process route handlers) | 151 tests / 10 files | `npm test` | ~4 s |
+| Unit + integration (vitest, in-process route handlers) | 168 tests / 11 files | `npm test` | ~4 s |
 | Python service (pytest, httpx ASGI transport) | 15 tests | `cd backend && pytest` | ~0.2 s |
 | Smoke (live HTTP) | 58 checks | `npm run smoke` with a server | ~6 s |
 | End-to-end (browser) | **not implemented** | — | — |

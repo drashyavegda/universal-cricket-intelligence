@@ -36,7 +36,7 @@ lib/
 
 ## Rules
 1. `lib/core/**` must not import React or `next/*` (except `next/server` in `lib/api/helpers.ts`) —
-   that is what makes 151 tests fast and network-free.
+   that is what makes 168 tests fast and network-free.
 2. `lib/core/db/store.ts` is the only module allowed to touch the filesystem.
 3. `lib/site.ts` is the only place route metadata is declared.
 4. Client code imports `lib/client/*` only; never a `lib/core` module that pulls in `fs`.

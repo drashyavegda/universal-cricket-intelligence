@@ -10,7 +10,7 @@ provider (optional), object storage (optional), PostgreSQL (optional in phase 1,
 | Component | Technology | Responsibility | Failure isolation |
 | --- | --- | --- | --- |
 | Web app | Next.js 14 App Router | routes, RSC metadata, static public pages | n/a |
-| BFF / API | 44 route handlers | validate → guard → engine → response envelope | per-route try/catch + `serverError()` |
+| BFF / API | 46 route handlers | validate → guard → engine → response envelope | per-route try/catch + `serverError()` |
 | Domain engines | `lib/core/**` (40 modules) | deterministic analytics | pure functions, no I/O |
 | Store | `lib/core/db/store.ts` | persistence (JSON today) | write errors logged, reads served from memory |
 | Auth | `lib/core/auth/*` | sessions, RBAC, 2FA, audit | lockouts, expired sessions rejected |

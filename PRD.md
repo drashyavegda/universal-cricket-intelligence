@@ -196,7 +196,7 @@ testimonials, feedback inbox. *AC:* secrets are write-only; the UI shows `hasApi
 
 ## 10. Release criteria for v1.1
 
-1. `tsc --noEmit` clean, 151 vitest tests, 11 pytest tests, 58 smoke checks green.
+1. `tsc --noEmit` clean, 168 vitest tests, 15 pytest tests, 58 smoke checks green.
 2. `npm run build` succeeds with no prerender errors.
 3. All 20 workspace pages 200 authenticated, 307 anonymous.
 4. Sitemap/robots/OG verified against a running production build.

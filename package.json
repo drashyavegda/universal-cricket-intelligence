@@ -1,35 +1,33 @@
 {
-  "name": "ucip-workspace",
-  "version": "1.1.0",
+  "name": "ucip-monorepo",
+  "version": "1.2.0",
   "private": true,
-  "description": "Universal AI Cricket Intelligence, Analytics, Scouting & Auction Strategy Platform — workspace manifest for the hybrid deployment (Next.js + FastAPI)",
+  "description": "Universal Cricket Intelligence Platform — Next.js application (frontend/) + optional FastAPI compute service (backend/) + Python analytics service (services/analytics)",
   "engines": {
     "node": ">=20.11"
   },
   "workspaces": [
-    "frontend",
-    "backend"
+    "frontend"
   ],
   "scripts": {
-    "dev": "next dev -H 0.0.0.0 -p 3000",
-    "build": "next build",
-    "start": "next start -H 0.0.0.0 -p 3000",
-    "typecheck": "tsc --noEmit",
-    "lint": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "dev": "npm run dev --workspace frontend",
+    "build": "npm run build --workspace frontend",
+    "start": "npm run start --workspace frontend",
+    "typecheck": "npm run typecheck --workspace frontend",
+    "lint": "npm run lint --workspace frontend",
+    "test": "npm run test --workspace frontend",
+    "seed": "npm run seed --workspace frontend",
+    "smoke": "npm run smoke --workspace frontend",
     "test:py": "cd backend && python -m pytest -q",
     "test:analytics": "cd services/analytics && python -m pytest -q",
-    "test:all": "vitest run && npm run test:py && npm run test:analytics",
-    "seed": "tsx scripts/seed.ts",
-    "smoke": "node scripts/smoke.mjs",
+    "test:all": "npm run test && npm run test:py",
     "api:dev": "cd backend && uvicorn main:app --host 0.0.0.0 --port 8000 --reload",
     "api:start": "cd backend && uvicorn main:app --host 0.0.0.0 --port 8000 --workers 2",
     "worker:start": "cd backend && python -m background_workers.worker",
+    "verify": "bash scripts/verify.sh",
     "stack:up": "docker compose up --build",
-    "stack:down": "docker compose down -v",
-    "validate:configs": "node scripts/maintenance/validate-configs.mjs"
+    "stack:down": "docker compose down -v"
   },
-  "//": "IMPORTANT: your repository already has a root package.json for the Next.js app. That file governs today's build. This workspace manifest is the phase-2 monorepo manifest — see MIGRATION_MAP.md before replacing anything. Dependency versions live in frontend/package.json and must stay pinned to the app's current majors.",
+  "//": "The Next.js application lives in frontend/ and is the only npm workspace. Vercel must be configured with Root Directory = frontend (see docs/deployment/VERCEL.md); this root manifest is for local monorepo convenience and for the Docker/compose workflows.",
   "license": "MIT"
 }

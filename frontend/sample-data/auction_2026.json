@@ -1,0 +1,164 @@
+[
+  {
+    "player": "Parth Pillai",
+    "base_price_lakh": 30,
+    "sold_price_lakh": 40,
+    "season": "2026",
+    "buyer": "Southern Stars",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Parth Thakur",
+    "base_price_lakh": 30,
+    "sold_price_lakh": 55,
+    "season": "2026",
+    "buyer": "Desert Hawks",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Tanish Sethi",
+    "base_price_lakh": 30,
+    "sold_price_lakh": 70,
+    "season": "2026",
+    "buyer": "Coastal Titans",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Dhruv Solanki",
+    "base_price_lakh": 30,
+    "sold_price_lakh": 30,
+    "season": "2026",
+    "buyer": "Sabarmati Strikers",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Tanish Bansal",
+    "base_price_lakh": 20,
+    "sold_price_lakh": 60,
+    "season": "2026",
+    "buyer": "Sabarmati Strikers",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Shivam Solanki",
+    "base_price_lakh": 20,
+    "sold_price_lakh": 45,
+    "season": "2026",
+    "buyer": "Desert Hawks",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Kabir Thakur",
+    "base_price_lakh": 40,
+    "sold_price_lakh": 40,
+    "season": "2026",
+    "buyer": "Coastal Titans",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Rudra Rathore",
+    "base_price_lakh": 40,
+    "sold_price_lakh": 40,
+    "season": "2026",
+    "buyer": "Southern Stars",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Ishaan Pillai",
+    "base_price_lakh": 30,
+    "sold_price_lakh": 30,
+    "season": "2026",
+    "buyer": "Deccan Chargers XI",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Vihaan Gandhi",
+    "base_price_lakh": 40,
+    "sold_price_lakh": 100,
+    "season": "2026",
+    "buyer": "Capital Royals",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Aryan Thakur",
+    "base_price_lakh": 30,
+    "sold_price_lakh": 125,
+    "season": "2026",
+    "buyer": "Deccan Chargers XI",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Shivam Bhatt",
+    "base_price_lakh": 10,
+    "sold_price_lakh": 50,
+    "season": "2026",
+    "buyer": "Sabarmati Strikers",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Tanish Iyer",
+    "base_price_lakh": 40,
+    "sold_price_lakh": 45,
+    "season": "2026",
+    "buyer": "Deccan Chargers XI",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Vihaan Deshpande",
+    "base_price_lakh": 10,
+    "sold_price_lakh": 10,
+    "season": "2026",
+    "buyer": "Southern Stars",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Dhruv Zaveri",
+    "base_price_lakh": 40,
+    "sold_price_lakh": 65,
+    "season": "2026",
+    "buyer": "Sabarmati Strikers",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Parth Patel",
+    "base_price_lakh": 20,
+    "sold_price_lakh": 115,
+    "season": "2026",
+    "buyer": "Sabarmati Strikers",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Parth Sethi",
+    "base_price_lakh": 30,
+    "sold_price_lakh": 70,
+    "season": "2026",
+    "buyer": "Deccan Chargers XI",
+    "capped": false,
+    "overseas": false
+  },
+  {
+    "player": "Dhruv Kulkarni",
+    "base_price_lakh": 10,
+    "sold_price_lakh": 20,
+    "season": "2026",
+    "buyer": "Capital Royals",
+    "capped": false,
+    "overseas": false
+  }
+]

@@ -25,7 +25,7 @@ valuable, not urgent. Status mirrors what has actually been executed.
 | Public forms + spam protection + thank-you | P1 | Done (CAPTCHA key optional) |
 | Privacy policy, FAQ, testimonials (labelled samples) | P1 | Done |
 | GA4 (consent-gated, optional) | P2 | Done (needs measurement ID) |
-| Test suite: 151 unit · 11 py · 58 smoke | P0 | Done |
+| Test suite: 168 unit · 15 py · 58 smoke | P0 | Done |
 
 ## Phase 1.1 — Structure & deployment package  ·  this archive
 | Item | P | Status |

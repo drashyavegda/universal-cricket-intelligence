@@ -15,6 +15,8 @@ returns `403 {code:"FORBIDDEN"}`.
 | Method | Path | Permission | Purpose |
 | --- | --- | --- | --- |
 | GET | `/api/health` | public | Liveness: `{status:"ok", mode, referenceDate, uptime}` |
+| GET | `/api/service/status` | `view` | FastAPI connection status: `{configured, endpoint, source, timeoutMs, tokenConfigured, latencyMs, health, ready, version, summary, serving}`. Always `200` — an unreachable dependency is data, not an error. |
+| POST | `/api/service/describe` | `view` | Round-trip probe → FastAPI `/stats/describe` on a labelled synthetic sample. Returns `{source:"fastapi"\|"local-fallback", result, latencyMs, backend}` so the response always says which engine answered. |
 
 ## Auth
 | Method | Path | Permission | Body / notes |

@@ -1,57 +1,71 @@
 {
-  "$comment": "Generated from the package contents. Keys are real paths; nothing is aspirational.",
+  "$comment": "Generated from the repository contents. Keys are real paths; nothing is aspirational.",
   "name": "Universal-Cricket-Intelligence-Platform",
-  "packageVersion": "1.0.0",
-  "generatedFor": "UCIP step 3 \u2014 structure package",
-  "runningApplication": {
-    "note": "The production build remains at the repository root of the existing project and is NOT modified by this package.",
-    "stack": [
-      "Next.js 14.2.15 (App Router)",
-      "React 18.3.1",
-      "TypeScript 5.6.2",
-      "Tailwind 3.4.13",
-      "vitest 2.1.1",
-      "FastAPI 0.115.6 (optional service)"
-    ],
-    "pages": 29,
-    "layouts": 25,
-    "apiRoutes": 44,
-    "libCoreModules": 40,
-    "tests": {
-      "vitest": 151,
-      "pytest": 11,
-      "smokeChecks": 58,
-      "buildRoutes": 34
-    }
+  "version": "1.2.0",
+  "layout": "monorepo: frontend/ (Next.js, Vercel Root Directory) + backend/ (FastAPI, Render)",
+  "vercel": {
+    "rootDirectory": "frontend",
+    "buildCommand": "npm run build",
+    "outputDirectory": ".next",
+    "healthCheck": "/api/health"
   },
-  "featureCounts": {
-    "platformFeatures": 30,
-    "websiteFeatures": 14,
-    "documentedApiRoutes": 44,
-    "adrs": 9
+  "render": {
+    "rootDirectory": "backend",
+    "startCommand": "uvicorn main:app --host 0.0.0.0 --port $PORT",
+    "healthCheck": "/health"
+  },
+  "integration": {
+    "frontendToBackend": [
+      "GET /api/service/status",
+      "POST /api/service/describe"
+    ],
+    "env": [
+      "NEXT_PUBLIC_API_URL",
+      "ANALYTICS_SERVICE_URL (alias)",
+      "ANALYTICS_SERVICE_TOKEN",
+      "BACKEND_TIMEOUT_MS"
+    ],
+    "failureModes": [
+      "not_configured",
+      "timeout",
+      "unreachable",
+      "http_error",
+      "invalid_response"
+    ]
+  },
+  "counts": {
+    "pages": 30,
+    "layouts": 26,
+    "apiRoutes": 46,
+    "buildRoutes": 35,
+    "vitest": 168,
+    "vitestFiles": 11,
+    "backendPytest": 15,
+    "smokeChecks": 58
   },
   "folderPurpose": {
-    ".github": "CI, security and release automation",
-    "app": "Next.js App Router in the running application (this package documents it, does not copy it)",
-    "backend": "Optional FastAPI compute service: config, logging, CORS allow-list, health, statistics, worker scaffold",
-    "database": "PostgreSQL migrations, reference schema, backup procedure",
-    "data": "JSON Schemas and synthetic sample layout for ingestion",
-    "docs": "PRD, architecture, API, database, deployment, security, testing, user guides, ADRs",
-    "frontend": "Layer map, feature specs, asset folders and config/constants/utils for the phase-5 split",
-    "infrastructure": "Copy-ready Vercel and Render templates (not active configuration)",
-    "legal": "Privacy inventory, cookie inventory, licence obligations, terms outline",
-    "marketing-seo": "Keyword map, content calendar, GA4 catalogue, outreach rules",
+    "frontend": "The Next.js 14 application \u2014 Vercel Root Directory (app/, components/, lib/, public/, tests/)",
+    "backend": "FastAPI compute service \u2014 Render (core, api, services, schemas, middleware, tests)",
+    "services": "Phase-1 Python statistics service (optional)",
+    "docs": "Requirements, architecture, API, database, deployment, security, testing, guides, ADRs",
+    "database": "PostgreSQL migrations, reference schema, backups procedure",
+    "infrastructure": "Vercel/Render/Docker templates (frontend/vercel.json is the active Vercel config)",
+    "security": "Rate limiting, spam, validation, audit, secrets, backup policies",
+    "analytics": "Product metrics computation and dashboard definitions",
+    "data": "JSON Schemas and labelled synthetic samples",
     "reports": "Report definitions (no generated data)",
-    "scripts": "Quality-gate runner and maintenance/backup tooling",
-    "security": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
-    "analytics": "Product-metrics computation and dashboard definitions",
-    "tests": "E2E, performance and security test specifications"
+    "marketing-seo": "Keyword map, content calendar, GA4 catalogue",
+    "legal": "Privacy/cookie/licence inventories",
+    "scripts": "Quality-gate runner and maintenance tooling",
+    "tests": "E2E, performance and security test specifications",
+    ".github": "CI, security and release workflows (frontend working-directory)"
   },
+  "fileCount": 433,
   "contents": {
     ".github": {
       "kind": "directory",
       "files": 3,
-      "purpose": "CI, security and release automation",
+      "purpose": "CI, security and release workflows (frontend working-directory)",
       "entries": {
         "workflows": {
           "kind": "directory",
@@ -59,18 +73,18 @@
           "entries": {
             "ci.yml": {
               "kind": "file",
-              "bytes": 1481,
-              "sha256_12": "4f6f705e0152"
+              "bytes": 1688,
+              "sha256_12": "615c9cf77a21"
             },
             "release.yml": {
               "kind": "file",
-              "bytes": 1491,
-              "sha256_12": "4facdc831fa1"
+              "bytes": 1654,
+              "sha256_12": "bae319fecd22"
             },
             "security.yml": {
               "kind": "file",
-              "bytes": 2733,
-              "sha256_12": "349c587363b5"
+              "bytes": 2783,
+              "sha256_12": "14d4789406ba"
             }
           }
         }
@@ -79,7 +93,7 @@
     "analytics": {
       "kind": "directory",
       "files": 6,
-      "purpose": "Product-metrics computation and dashboard definitions",
+      "purpose": "Product metrics computation and dashboard definitions",
       "entries": {
         "dashboards": {
           "kind": "directory",
@@ -135,7 +149,7 @@
     "backend": {
       "kind": "directory",
       "files": 46,
-      "purpose": "Optional FastAPI compute service: config, logging, CORS allow-list, health, statistics, worker scaffold",
+      "purpose": "FastAPI compute service \u2014 Render (core, api, services, schemas, middleware, tests)",
       "entries": {
         "agents": {
           "kind": "directory",
@@ -162,7 +176,7 @@
         "analytics": {
           "kind": "directory",
           "files": 1,
-          "purpose": "Product-metrics computation and dashboard definitions",
+          "purpose": "Product metrics computation and dashboard definitions",
           "entries": {
             "README.md": {
               "kind": "file",
@@ -285,7 +299,7 @@
         "database": {
           "kind": "directory",
           "files": 1,
-          "purpose": "PostgreSQL migrations, reference schema, backup procedure",
+          "purpose": "PostgreSQL migrations, reference schema, backups procedure",
           "entries": {
             "README.md": {
               "kind": "file",
@@ -383,7 +397,7 @@
         "security": {
           "kind": "directory",
           "files": 2,
-          "purpose": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
+          "purpose": "Rate limiting, spam, validation, audit, secrets, backup policies",
           "entries": {
             "__init__.py": {
               "kind": "file",
@@ -400,6 +414,7 @@
         "services": {
           "kind": "directory",
           "files": 2,
+          "purpose": "Phase-1 Python statistics service (optional)",
           "entries": {
             "__init__.py": {
               "kind": "file",
@@ -508,7 +523,7 @@
     "data": {
       "kind": "directory",
       "files": 6,
-      "purpose": "JSON Schemas and synthetic sample layout for ingestion",
+      "purpose": "JSON Schemas and labelled synthetic samples",
       "entries": {
         "samples": {
           "kind": "directory",
@@ -557,7 +572,7 @@
     "database": {
       "kind": "directory",
       "files": 6,
-      "purpose": "PostgreSQL migrations, reference schema, backup procedure",
+      "purpose": "PostgreSQL migrations, reference schema, backups procedure",
       "entries": {
         "backups": {
           "kind": "directory",
@@ -611,8 +626,8 @@
     },
     "docs": {
       "kind": "directory",
-      "files": 49,
-      "purpose": "PRD, architecture, API, database, deployment, security, testing, user guides, ADRs",
+      "files": 57,
+      "purpose": "Requirements, architecture, API, database, deployment, security, testing, guides, ADRs",
       "entries": {
         "api": {
           "kind": "directory",
@@ -620,8 +635,8 @@
           "entries": {
             "API_REFERENCE.md": {
               "kind": "file",
-              "bytes": 6872,
-              "sha256_12": "d96542b15d91"
+              "bytes": 7374,
+              "sha256_12": "c9aa350deb64"
             },
             "AUTHENTICATION.md": {
               "kind": "file",
@@ -636,7 +651,53 @@
             "README.md": {
               "kind": "file",
               "bytes": 548,
-              "sha256_12": "3907863bfdc9"
+              "sha256_12": "81efb4ba3ac9"
+            }
+          }
+        },
+        "app-reference": {
+          "kind": "directory",
+          "files": 8,
+          "entries": {
+            "API_DOCUMENTATION.md": {
+              "kind": "file",
+              "bytes": 11111,
+              "sha256_12": "74b4ec6d0406"
+            },
+            "ARCHITECTURE.md": {
+              "kind": "file",
+              "bytes": 11067,
+              "sha256_12": "d47850440c7f"
+            },
+            "DATABASE_SCHEMA.md": {
+              "kind": "file",
+              "bytes": 4061,
+              "sha256_12": "3eb2cbc17628"
+            },
+            "DEPLOYMENT.md": {
+              "kind": "file",
+              "bytes": 7639,
+              "sha256_12": "f34ba33e2858"
+            },
+            "FEATURE_GUIDE.md": {
+              "kind": "file",
+              "bytes": 12698,
+              "sha256_12": "1dbcf430931c"
+            },
+            "SECURITY.md": {
+              "kind": "file",
+              "bytes": 8413,
+              "sha256_12": "97e5c26568e2"
+            },
+            "SEO_AND_TRUST.md": {
+              "kind": "file",
+              "bytes": 18843,
+              "sha256_12": "46f34db9434d"
+            },
+            "TESTING.md": {
+              "kind": "file",
+              "bytes": 9844,
+              "sha256_12": "16175a01ed8a"
             }
           }
         },
@@ -652,7 +713,7 @@
             "ARCHITECTURE_OVERVIEW.md": {
               "kind": "file",
               "bytes": 4047,
-              "sha256_12": "dcea2fd47b7f"
+              "sha256_12": "db1e76bf67c2"
             },
             "DATA_FLOW_AND_PROVENANCE.md": {
               "kind": "file",
@@ -679,7 +740,7 @@
         "database": {
           "kind": "directory",
           "files": 3,
-          "purpose": "PostgreSQL migrations, reference schema, backup procedure",
+          "purpose": "PostgreSQL migrations, reference schema, backups procedure",
           "entries": {
             "DATA_RETENTION.md": {
               "kind": "file",
@@ -705,12 +766,12 @@
             "ADR-0001-single-nextjs-application.md": {
               "kind": "file",
               "bytes": 1667,
-              "sha256_12": "997e77aa57ac"
+              "sha256_12": "9a82977651a1"
             },
             "ADR-0002-deterministic-analytics-first.md": {
               "kind": "file",
               "bytes": 1416,
-              "sha256_12": "6d99807d095a"
+              "sha256_12": "8528376874e2"
             },
             "ADR-0003-json-store-with-postgres-path.md": {
               "kind": "file",
@@ -720,7 +781,7 @@
             "ADR-0004-metadata-registry.md": {
               "kind": "file",
               "bytes": 1255,
-              "sha256_12": "748882818809"
+              "sha256_12": "88e03cd5378e"
             },
             "ADR-0005-public-private-route-split.md": {
               "kind": "file",
@@ -760,18 +821,18 @@
           "entries": {
             "ENVIRONMENT_VARIABLES.md": {
               "kind": "file",
-              "bytes": 4460,
-              "sha256_12": "3523f1541df5"
+              "bytes": 4887,
+              "sha256_12": "dc1ec6a7cca5"
             },
             "LOCAL_DEVELOPMENT.md": {
               "kind": "file",
               "bytes": 2195,
-              "sha256_12": "7cbeb16fc784"
+              "sha256_12": "9071f59b1c68"
             },
             "PRODUCTION_BUILD.md": {
               "kind": "file",
               "bytes": 2089,
-              "sha256_12": "246b1f9ab07f"
+              "sha256_12": "6057616fbd1c"
             },
             "README.md": {
               "kind": "file",
@@ -795,8 +856,8 @@
             },
             "VERCEL.md": {
               "kind": "file",
-              "bytes": 4064,
-              "sha256_12": "cc2f3a672220"
+              "bytes": 7294,
+              "sha256_12": "025524890cc1"
             }
           }
         },
@@ -834,7 +895,7 @@
         "security": {
           "kind": "directory",
           "files": 4,
-          "purpose": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
+          "purpose": "Rate limiting, spam, validation, audit, secrets, backup policies",
           "entries": {
             "KNOWN_GAPS.md": {
               "kind": "file",
@@ -875,7 +936,7 @@
             "TEST_STRATEGY.md": {
               "kind": "file",
               "bytes": 4306,
-              "sha256_12": "615eabb8f5de"
+              "sha256_12": "2ae3f76f1b74"
             }
           }
         },
@@ -912,19 +973,1519 @@
         },
         "README.md": {
           "kind": "file",
-          "bytes": 4012,
-          "sha256_12": "bc0ca6c89b71"
+          "bytes": 4042,
+          "sha256_12": "47e00acc35c3"
         }
       }
     },
     "frontend": {
       "kind": "directory",
-      "files": 47,
-      "purpose": "Layer map, feature specs, asset folders and config/constants/utils for the phase-5 split",
+      "files": 249,
+      "purpose": "The Next.js 14 application \u2014 Vercel Root Directory (app/, components/, lib/, public/, tests/)",
       "entries": {
+        "app": {
+          "kind": "directory",
+          "files": 108,
+          "entries": {
+            "(app)": {
+              "kind": "directory",
+              "files": 46,
+              "entries": {
+                "assistant": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 500,
+                      "sha256_12": "395ae9616e5a"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 8170,
+                      "sha256_12": "c48092c0ff9d"
+                    }
+                  }
+                },
+                "auction": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 503,
+                      "sha256_12": "4c74a94b12e8"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 15905,
+                      "sha256_12": "d2427ba6e3b7"
+                    }
+                  }
+                },
+                "automation": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 482,
+                      "sha256_12": "718b7982a91d"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 6934,
+                      "sha256_12": "bc8bb5856aec"
+                    }
+                  }
+                },
+                "compare": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 504,
+                      "sha256_12": "fb4a3b00d7e5"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 10934,
+                      "sha256_12": "192ebb75624d"
+                    }
+                  }
+                },
+                "dashboard": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 500,
+                      "sha256_12": "3ce59641eb61"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 10281,
+                      "sha256_12": "b3683ef84ece"
+                    }
+                  }
+                },
+                "data": {
+                  "kind": "directory",
+                  "files": 2,
+                  "purpose": "JSON Schemas and labelled synthetic samples",
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 509,
+                      "sha256_12": "317ba6d5e045"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 25544,
+                      "sha256_12": "7086b6ee5637"
+                    }
+                  }
+                },
+                "match": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 485,
+                      "sha256_12": "a66639472436"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 7934,
+                      "sha256_12": "175ebf25483b"
+                    }
+                  }
+                },
+                "opposition": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 501,
+                      "sha256_12": "6f379d9440cb"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 8242,
+                      "sha256_12": "4c4741c4bd78"
+                    }
+                  }
+                },
+                "pitch": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 501,
+                      "sha256_12": "60887daa50ac"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 10869,
+                      "sha256_12": "7fa6282ea69a"
+                    }
+                  }
+                },
+                "players": {
+                  "kind": "directory",
+                  "files": 5,
+                  "entries": {
+                    "[id]": {
+                      "kind": "directory",
+                      "files": 3,
+                      "entries": {
+                        "layout.tsx": {
+                          "kind": "file",
+                          "bytes": 2316,
+                          "sha256_12": "eafa7aa34cb5"
+                        },
+                        "opengraph-image.tsx": {
+                          "kind": "file",
+                          "bytes": 2894,
+                          "sha256_12": "cc8ccd2897ad"
+                        },
+                        "page.tsx": {
+                          "kind": "file",
+                          "bytes": 24932,
+                          "sha256_12": "f6dd40f0188c"
+                        }
+                      }
+                    },
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 511,
+                      "sha256_12": "5fd8084bdbaf"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 5775,
+                      "sha256_12": "5a4b4e50c785"
+                    }
+                  }
+                },
+                "prediction": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 505,
+                      "sha256_12": "1bb26782c9b2"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 11696,
+                      "sha256_12": "45698546139b"
+                    }
+                  }
+                },
+                "reports": {
+                  "kind": "directory",
+                  "files": 2,
+                  "purpose": "Report definitions (no generated data)",
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 512,
+                      "sha256_12": "27e651ff0ba9"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 9298,
+                      "sha256_12": "ae6886cded65"
+                    }
+                  }
+                },
+                "research": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 486,
+                      "sha256_12": "9834d52a942a"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 6780,
+                      "sha256_12": "c6708d0e577d"
+                    }
+                  }
+                },
+                "scouting": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 493,
+                      "sha256_12": "ae952126691c"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 7180,
+                      "sha256_12": "99f80da7f5d3"
+                    }
+                  }
+                },
+                "settings": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 498,
+                      "sha256_12": "8b96f9633146"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 16396,
+                      "sha256_12": "5d3bb5c4bab7"
+                    }
+                  }
+                },
+                "stats": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 512,
+                      "sha256_12": "026d949d62ad"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 11109,
+                      "sha256_12": "caae9bfd8a3a"
+                    }
+                  }
+                },
+                "system": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 510,
+                      "sha256_12": "a49a851fa9c2"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 6089,
+                      "sha256_12": "49346b7bcce7"
+                    }
+                  }
+                },
+                "talent": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 497,
+                      "sha256_12": "ce9564dc78c2"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 19439,
+                      "sha256_12": "569fb9d3728e"
+                    }
+                  }
+                },
+                "team": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 485,
+                      "sha256_12": "0b4d652522c4"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 12861,
+                      "sha256_12": "4299ea80e9d0"
+                    }
+                  }
+                },
+                "workload": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 501,
+                      "sha256_12": "81a4fc29dafc"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 7776,
+                      "sha256_12": "c7caa24e30a8"
+                    }
+                  }
+                },
+                "xi": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "layout.tsx": {
+                      "kind": "file",
+                      "bytes": 502,
+                      "sha256_12": "10fb2bd30187"
+                    },
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 9962,
+                      "sha256_12": "08af51ac0a77"
+                    }
+                  }
+                },
+                "layout.tsx": {
+                  "kind": "file",
+                  "bytes": 1135,
+                  "sha256_12": "fb332dbe73c1"
+                }
+              }
+            },
+            "(public)": {
+              "kind": "directory",
+              "files": 8,
+              "entries": {
+                "contact": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 4240,
+                      "sha256_12": "75f15883b908"
+                    }
+                  }
+                },
+                "faq": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 3600,
+                      "sha256_12": "7a7afa8bc03e"
+                    }
+                  }
+                },
+                "privacy": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 10896,
+                      "sha256_12": "74c1b9f3eeea"
+                    }
+                  }
+                },
+                "testimonials": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 5908,
+                      "sha256_12": "5aad979f0f3a"
+                    }
+                  }
+                },
+                "thank-you": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 5592,
+                      "sha256_12": "9d7baeebc4ad"
+                    }
+                  }
+                },
+                "tour": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "page.tsx": {
+                      "kind": "file",
+                      "bytes": 4087,
+                      "sha256_12": "05f5d1752831"
+                    }
+                  }
+                },
+                "layout.tsx": {
+                  "kind": "file",
+                  "bytes": 651,
+                  "sha256_12": "a965caf89f88"
+                },
+                "page.tsx": {
+                  "kind": "file",
+                  "bytes": 14288,
+                  "sha256_12": "9da9eff0f167"
+                }
+              }
+            },
+            "api": {
+              "kind": "directory",
+              "files": 46,
+              "entries": {
+                "assistant": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 1250,
+                      "sha256_12": "5245621dd750"
+                    }
+                  }
+                },
+                "auction": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 4230,
+                      "sha256_12": "0be543c5683c"
+                    }
+                  }
+                },
+                "audit": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 440,
+                      "sha256_12": "997f6d9ac840"
+                    }
+                  }
+                },
+                "auth": {
+                  "kind": "directory",
+                  "files": 3,
+                  "entries": {
+                    "2fa": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 1198,
+                          "sha256_12": "7d9b746a7b37"
+                        }
+                      }
+                    },
+                    "login": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 1257,
+                          "sha256_12": "c72728716a74"
+                        }
+                      }
+                    },
+                    "me": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 686,
+                          "sha256_12": "94237c761369"
+                        }
+                      }
+                    }
+                  }
+                },
+                "compare": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 3596,
+                      "sha256_12": "035db9497385"
+                    }
+                  }
+                },
+                "datasets": {
+                  "kind": "directory",
+                  "files": 3,
+                  "entries": {
+                    "[id]": {
+                      "kind": "directory",
+                      "files": 2,
+                      "entries": {
+                        "quality": {
+                          "kind": "directory",
+                          "files": 1,
+                          "entries": {
+                            "route.ts": {
+                              "kind": "file",
+                              "bytes": 1068,
+                              "sha256_12": "7ad7631cd86e"
+                            }
+                          }
+                        },
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 2311,
+                          "sha256_12": "665d05105ed4"
+                        }
+                      }
+                    },
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 1967,
+                      "sha256_12": "3ebc94090873"
+                    }
+                  }
+                },
+                "export": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 4240,
+                      "sha256_12": "290f6649ee16"
+                    }
+                  }
+                },
+                "feedback": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 1203,
+                      "sha256_12": "2e768854ab9b"
+                    }
+                  }
+                },
+                "health": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 1546,
+                      "sha256_12": "b1f3e657363f"
+                    }
+                  }
+                },
+                "knowledge": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 2230,
+                      "sha256_12": "e8db9232e632"
+                    }
+                  }
+                },
+                "merge": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 2190,
+                      "sha256_12": "10072581633f"
+                    }
+                  }
+                },
+                "notifications": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 716,
+                      "sha256_12": "05d3a3330cc8"
+                    }
+                  }
+                },
+                "opposition": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 1156,
+                      "sha256_12": "36636b240bc4"
+                    }
+                  }
+                },
+                "overview": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 3883,
+                      "sha256_12": "e0893e293ff8"
+                    }
+                  }
+                },
+                "pitch": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 2645,
+                      "sha256_12": "c4fa1868a472"
+                    }
+                  }
+                },
+                "players": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "[id]": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 3717,
+                          "sha256_12": "398307b24306"
+                        }
+                      }
+                    },
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 3550,
+                      "sha256_12": "1255eed9a8ce"
+                    }
+                  }
+                },
+                "predict": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 4163,
+                      "sha256_12": "79f9c4411410"
+                    }
+                  }
+                },
+                "public": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "feedback": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 2019,
+                          "sha256_12": "b0626ab948d8"
+                        }
+                      }
+                    }
+                  }
+                },
+                "rank": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 2839,
+                      "sha256_12": "e7be149e004f"
+                    }
+                  }
+                },
+                "records": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "[id]": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 2117,
+                          "sha256_12": "657c3aec3e38"
+                        }
+                      }
+                    }
+                  }
+                },
+                "reports": {
+                  "kind": "directory",
+                  "files": 3,
+                  "purpose": "Report definitions (no generated data)",
+                  "entries": {
+                    "[id]": {
+                      "kind": "directory",
+                      "files": 2,
+                      "entries": {
+                        "export": {
+                          "kind": "directory",
+                          "files": 1,
+                          "entries": {
+                            "route.ts": {
+                              "kind": "file",
+                              "bytes": 2477,
+                              "sha256_12": "1c0ff08fc9a1"
+                            }
+                          }
+                        },
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 459,
+                          "sha256_12": "b3c0ec98850e"
+                        }
+                      }
+                    },
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 3159,
+                      "sha256_12": "c81580f03f60"
+                    }
+                  }
+                },
+                "scouting": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 1537,
+                      "sha256_12": "be95eedb5a9d"
+                    }
+                  }
+                },
+                "service": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "describe": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 3627,
+                          "sha256_12": "44486b82e033"
+                        }
+                      }
+                    },
+                    "status": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 746,
+                          "sha256_12": "41623788bbb1"
+                        }
+                      }
+                    }
+                  }
+                },
+                "settings": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "security": {
+                      "kind": "directory",
+                      "files": 1,
+                      "purpose": "Rate limiting, spam, validation, audit, secrets, backup policies",
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 566,
+                          "sha256_12": "274174e57a63"
+                        }
+                      }
+                    },
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 3130,
+                      "sha256_12": "b450eed0edf1"
+                    }
+                  }
+                },
+                "shortlists": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "[id]": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 2599,
+                          "sha256_12": "c1e118284913"
+                        }
+                      }
+                    },
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 2377,
+                      "sha256_12": "f0f85ba65859"
+                    }
+                  }
+                },
+                "stats": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 7369,
+                      "sha256_12": "ca2bcf4c05d1"
+                    }
+                  }
+                },
+                "talent": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 4982,
+                      "sha256_12": "fe1a24fa1fd4"
+                    }
+                  }
+                },
+                "team": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "[id]": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 2597,
+                          "sha256_12": "448516304992"
+                        }
+                      }
+                    }
+                  }
+                },
+                "teams": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 502,
+                      "sha256_12": "0e9947dd05a4"
+                    }
+                  }
+                },
+                "testimonials": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 2859,
+                      "sha256_12": "1b59f4bb785c"
+                    }
+                  }
+                },
+                "upload": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 5829,
+                      "sha256_12": "5a7410a04791"
+                    }
+                  }
+                },
+                "venues": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 774,
+                      "sha256_12": "24551d4861c7"
+                    }
+                  }
+                },
+                "workflows": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "[id]": {
+                      "kind": "directory",
+                      "files": 1,
+                      "entries": {
+                        "route.ts": {
+                          "kind": "file",
+                          "bytes": 1051,
+                          "sha256_12": "e118f3b4cf2a"
+                        }
+                      }
+                    },
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 1377,
+                      "sha256_12": "d7ede6c1ed61"
+                    }
+                  }
+                },
+                "workload": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 1964,
+                      "sha256_12": "83a1a04de642"
+                    }
+                  }
+                },
+                "xi": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "route.ts": {
+                      "kind": "file",
+                      "bytes": 2462,
+                      "sha256_12": "a53243bfc84e"
+                    }
+                  }
+                }
+              }
+            },
+            "login": {
+              "kind": "directory",
+              "files": 2,
+              "entries": {
+                "layout.tsx": {
+                  "kind": "file",
+                  "bytes": 651,
+                  "sha256_12": "7a3e417bed2e"
+                },
+                "page.tsx": {
+                  "kind": "file",
+                  "bytes": 4764,
+                  "sha256_12": "e1c60900e1e6"
+                }
+              }
+            },
+            "globals.css": {
+              "kind": "file",
+              "bytes": 3506,
+              "sha256_12": "1e8fc09bbd62"
+            },
+            "layout.tsx": {
+              "kind": "file",
+              "bytes": 2030,
+              "sha256_12": "28e579ed6cc3"
+            },
+            "not-found.tsx": {
+              "kind": "file",
+              "bytes": 3720,
+              "sha256_12": "42fe4878efa7"
+            },
+            "opengraph-image.tsx": {
+              "kind": "file",
+              "bytes": 2818,
+              "sha256_12": "3fde5fb78df2"
+            },
+            "robots.ts": {
+              "kind": "file",
+              "bytes": 1083,
+              "sha256_12": "07d51507447e"
+            },
+            "sitemap.ts": {
+              "kind": "file",
+              "bytes": 825,
+              "sha256_12": "69abfbe56ab8"
+            }
+          }
+        },
+        "components": {
+          "kind": "directory",
+          "files": 11,
+          "entries": {
+            "analytics.tsx": {
+              "kind": "file",
+              "bytes": 3552,
+              "sha256_12": "42093db1813b"
+            },
+            "back-button.tsx": {
+              "kind": "file",
+              "bytes": 346,
+              "sha256_12": "b8204e2eff15"
+            },
+            "breadcrumbs.tsx": {
+              "kind": "file",
+              "bytes": 2465,
+              "sha256_12": "41fe26c8daca"
+            },
+            "charts.tsx": {
+              "kind": "file",
+              "bytes": 5862,
+              "sha256_12": "56d7e73edea2"
+            },
+            "contact-form.tsx": {
+              "kind": "file",
+              "bytes": 8460,
+              "sha256_12": "b76d2deacef5"
+            },
+            "faq-explorer.tsx": {
+              "kind": "file",
+              "bytes": 4081,
+              "sha256_12": "25d0a9261ea1"
+            },
+            "growth-admin.tsx": {
+              "kind": "file",
+              "bytes": 11835,
+              "sha256_12": "24dfddad5df2"
+            },
+            "public-chrome.tsx": {
+              "kind": "file",
+              "bytes": 6534,
+              "sha256_12": "a3d95d573dee"
+            },
+            "service-status.tsx": {
+              "kind": "file",
+              "bytes": 11525,
+              "sha256_12": "49f94a0a8b39"
+            },
+            "shell.tsx": {
+              "kind": "file",
+              "bytes": 17273,
+              "sha256_12": "9c3724218a0b"
+            },
+            "ui.tsx": {
+              "kind": "file",
+              "bytes": 8327,
+              "sha256_12": "61f950bc25a2"
+            }
+          }
+        },
+        "lib": {
+          "kind": "directory",
+          "files": 49,
+          "entries": {
+            "api": {
+              "kind": "directory",
+              "files": 2,
+              "entries": {
+                "backend.ts": {
+                  "kind": "file",
+                  "bytes": 10198,
+                  "sha256_12": "be31b407be22"
+                },
+                "helpers.ts": {
+                  "kind": "file",
+                  "bytes": 1872,
+                  "sha256_12": "82c4c8177d1d"
+                }
+              }
+            },
+            "client": {
+              "kind": "directory",
+              "files": 2,
+              "entries": {
+                "analytics.ts": {
+                  "kind": "file",
+                  "bytes": 3893,
+                  "sha256_12": "003b3811acaa"
+                },
+                "api.ts": {
+                  "kind": "file",
+                  "bytes": 2391,
+                  "sha256_12": "db1f6dc36187"
+                }
+              }
+            },
+            "content": {
+              "kind": "directory",
+              "files": 2,
+              "entries": {
+                "faq.ts": {
+                  "kind": "file",
+                  "bytes": 10516,
+                  "sha256_12": "c3e93508e06d"
+                },
+                "tour.ts": {
+                  "kind": "file",
+                  "bytes": 6057,
+                  "sha256_12": "4864177799b1"
+                }
+              }
+            },
+            "core": {
+              "kind": "directory",
+              "files": 42,
+              "entries": {
+                "ai": {
+                  "kind": "directory",
+                  "files": 4,
+                  "entries": {
+                    "agents.ts": {
+                      "kind": "file",
+                      "bytes": 14290,
+                      "sha256_12": "ba4165fab037"
+                    },
+                    "assistant.ts": {
+                      "kind": "file",
+                      "bytes": 14072,
+                      "sha256_12": "d06a37cad0a5"
+                    },
+                    "gateway.ts": {
+                      "kind": "file",
+                      "bytes": 8328,
+                      "sha256_12": "b5079f7e49f7"
+                    },
+                    "nlq.ts": {
+                      "kind": "file",
+                      "bytes": 7351,
+                      "sha256_12": "df06c657276c"
+                    }
+                  }
+                },
+                "auction": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "sim.ts": {
+                      "kind": "file",
+                      "bytes": 8805,
+                      "sha256_12": "e401f2e76215"
+                    },
+                    "valuation.ts": {
+                      "kind": "file",
+                      "bytes": 9536,
+                      "sha256_12": "b04763e53740"
+                    }
+                  }
+                },
+                "auth": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "crypto.ts": {
+                      "kind": "file",
+                      "bytes": 3927,
+                      "sha256_12": "8f652c32739f"
+                    },
+                    "service.ts": {
+                      "kind": "file",
+                      "bytes": 8224,
+                      "sha256_12": "e14e16d6d395"
+                    }
+                  }
+                },
+                "career": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "trajectory.ts": {
+                      "kind": "file",
+                      "bytes": 8669,
+                      "sha256_12": "839780d74171"
+                    }
+                  }
+                },
+                "data": {
+                  "kind": "directory",
+                  "files": 6,
+                  "purpose": "JSON Schemas and labelled synthetic samples",
+                  "entries": {
+                    "extract.ts": {
+                      "kind": "file",
+                      "bytes": 9546,
+                      "sha256_12": "e1eb1e275571"
+                    },
+                    "merge.ts": {
+                      "kind": "file",
+                      "bytes": 5635,
+                      "sha256_12": "958ed980cd94"
+                    },
+                    "parse.ts": {
+                      "kind": "file",
+                      "bytes": 9767,
+                      "sha256_12": "0a61fe3415bd"
+                    },
+                    "promote.ts": {
+                      "kind": "file",
+                      "bytes": 11592,
+                      "sha256_12": "4ca23ae43e72"
+                    },
+                    "quality.ts": {
+                      "kind": "file",
+                      "bytes": 8061,
+                      "sha256_12": "0ae2c8d1e4fa"
+                    },
+                    "synonyms.ts": {
+                      "kind": "file",
+                      "bytes": 15388,
+                      "sha256_12": "77f74de47e8f"
+                    }
+                  }
+                },
+                "db": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "seed.ts": {
+                      "kind": "file",
+                      "bytes": 38330,
+                      "sha256_12": "d8500d59755f"
+                    },
+                    "store.ts": {
+                      "kind": "file",
+                      "bytes": 7884,
+                      "sha256_12": "b5bd7c523c33"
+                    }
+                  }
+                },
+                "growth": {
+                  "kind": "directory",
+                  "files": 3,
+                  "entries": {
+                    "feedback.ts": {
+                      "kind": "file",
+                      "bytes": 5521,
+                      "sha256_12": "dcace0943e01"
+                    },
+                    "forms.ts": {
+                      "kind": "file",
+                      "bytes": 8621,
+                      "sha256_12": "ad1af02504df"
+                    },
+                    "testimonials.ts": {
+                      "kind": "file",
+                      "bytes": 6682,
+                      "sha256_12": "e738dfde76e1"
+                    }
+                  }
+                },
+                "knowledge": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "search.ts": {
+                      "kind": "file",
+                      "bytes": 3106,
+                      "sha256_12": "8063d4e1f5cc"
+                    }
+                  }
+                },
+                "pitch": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "venue.ts": {
+                      "kind": "file",
+                      "bytes": 9316,
+                      "sha256_12": "5a23948408d4"
+                    }
+                  }
+                },
+                "players": {
+                  "kind": "directory",
+                  "files": 3,
+                  "entries": {
+                    "metrics.ts": {
+                      "kind": "file",
+                      "bytes": 12045,
+                      "sha256_12": "f413f841d529"
+                    },
+                    "potential.ts": {
+                      "kind": "file",
+                      "bytes": 6179,
+                      "sha256_12": "03f080cadedb"
+                    },
+                    "risk.ts": {
+                      "kind": "file",
+                      "bytes": 5430,
+                      "sha256_12": "98fb9a9044f4"
+                    }
+                  }
+                },
+                "ranking": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "engine.ts": {
+                      "kind": "file",
+                      "bytes": 8125,
+                      "sha256_12": "9557aeb607b0"
+                    },
+                    "presets.ts": {
+                      "kind": "file",
+                      "bytes": 7413,
+                      "sha256_12": "b051bd1706c6"
+                    }
+                  }
+                },
+                "reporting": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "build.ts": {
+                      "kind": "file",
+                      "bytes": 21651,
+                      "sha256_12": "247f745a3575"
+                    },
+                    "export.ts": {
+                      "kind": "file",
+                      "bytes": 15918,
+                      "sha256_12": "c78ff4529d8c"
+                    }
+                  }
+                },
+                "scouting": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "global.ts": {
+                      "kind": "file",
+                      "bytes": 3831,
+                      "sha256_12": "9c0ba344f2cf"
+                    }
+                  }
+                },
+                "security": {
+                  "kind": "directory",
+                  "files": 2,
+                  "purpose": "Rate limiting, spam, validation, audit, secrets, backup policies",
+                  "entries": {
+                    "edge.ts": {
+                      "kind": "file",
+                      "bytes": 3627,
+                      "sha256_12": "92a0db71bbe3"
+                    },
+                    "posture.ts": {
+                      "kind": "file",
+                      "bytes": 6905,
+                      "sha256_12": "e6bd898d65dd"
+                    }
+                  }
+                },
+                "shortlists": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "service.ts": {
+                      "kind": "file",
+                      "bytes": 3937,
+                      "sha256_12": "3f0d6a865229"
+                    }
+                  }
+                },
+                "sim": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "match.ts": {
+                      "kind": "file",
+                      "bytes": 20160,
+                      "sha256_12": "f0b4437e0056"
+                    }
+                  }
+                },
+                "stats": {
+                  "kind": "directory",
+                  "files": 2,
+                  "entries": {
+                    "descriptive.ts": {
+                      "kind": "file",
+                      "bytes": 8707,
+                      "sha256_12": "e41fe8a17b16"
+                    },
+                    "probability.ts": {
+                      "kind": "file",
+                      "bytes": 4307,
+                      "sha256_12": "e6033fc0368e"
+                    }
+                  }
+                },
+                "team": {
+                  "kind": "directory",
+                  "files": 3,
+                  "entries": {
+                    "opposition.ts": {
+                      "kind": "file",
+                      "bytes": 6021,
+                      "sha256_12": "ac9bf7bbfeea"
+                    },
+                    "squad.ts": {
+                      "kind": "file",
+                      "bytes": 12552,
+                      "sha256_12": "3a5e6da6fec1"
+                    },
+                    "xi.ts": {
+                      "kind": "file",
+                      "bytes": 15232,
+                      "sha256_12": "c32c17851c5e"
+                    }
+                  }
+                },
+                "workload": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "engine.ts": {
+                      "kind": "file",
+                      "bytes": 5546,
+                      "sha256_12": "a206ae2cb0b2"
+                    }
+                  }
+                },
+                "rng.ts": {
+                  "kind": "file",
+                  "bytes": 1663,
+                  "sha256_12": "e296e00653e5"
+                },
+                "types.ts": {
+                  "kind": "file",
+                  "bytes": 12797,
+                  "sha256_12": "99c566e48bf1"
+                }
+              }
+            },
+            "site.ts": {
+              "kind": "file",
+              "bytes": 10642,
+              "sha256_12": "b08ca13ba033"
+            }
+          }
+        },
         "public": {
           "kind": "directory",
-          "files": 8,
+          "files": 9,
           "entries": {
             "favicon": {
               "kind": "directory",
@@ -991,10 +2552,68 @@
               "bytes": 1684,
               "sha256_12": "8d2261ec4e4d"
             },
+            "favicon.svg": {
+              "kind": "file",
+              "bytes": 570,
+              "sha256_12": "5a11acf21b85"
+            },
             "manifest.json": {
               "kind": "file",
               "bytes": 1159,
               "sha256_12": "8d35e2b826a5"
+            }
+          }
+        },
+        "sample-data": {
+          "kind": "directory",
+          "files": 6,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1618,
+              "sha256_12": "9ac698522752"
+            },
+            "age_group_trials.csv": {
+              "kind": "file",
+              "bytes": 2001,
+              "sha256_12": "62972fc0be4b"
+            },
+            "auction_2026.json": {
+              "kind": "file",
+              "bytes": 3449,
+              "sha256_12": "d5c588d81a2c"
+            },
+            "domestic_batting_2026_27.csv": {
+              "kind": "file",
+              "bytes": 3863,
+              "sha256_12": "3d2faa3ee567"
+            },
+            "domestic_bowling_2026_27.csv": {
+              "kind": "file",
+              "bytes": 1420,
+              "sha256_12": "13347f95918f"
+            },
+            "scouting_note.md": {
+              "kind": "file",
+              "bytes": 855,
+              "sha256_12": "013252b38efe"
+            }
+          }
+        },
+        "scripts": {
+          "kind": "directory",
+          "files": 2,
+          "purpose": "Quality-gate runner and maintenance tooling",
+          "entries": {
+            "seed.ts": {
+              "kind": "file",
+              "bytes": 1231,
+              "sha256_12": "be688ba13779"
+            },
+            "smoke.mjs": {
+              "kind": "file",
+              "bytes": 11168,
+              "sha256_12": "15914e53f5f8"
             }
           }
         },
@@ -1005,12 +2624,11 @@
             "app": {
               "kind": "directory",
               "files": 1,
-              "purpose": "Next.js App Router in the running application (this package documents it, does not copy it)",
               "entries": {
                 "README.md": {
                   "kind": "file",
                   "bytes": 2796,
-                  "sha256_12": "d83629a69631"
+                  "sha256_12": "1134802dd555"
                 }
               }
             },
@@ -1021,7 +2639,7 @@
                 "analytics": {
                   "kind": "directory",
                   "files": 1,
-                  "purpose": "Product-metrics computation and dashboard definitions",
+                  "purpose": "Product metrics computation and dashboard definitions",
                   "entries": {
                     "README.md": {
                       "kind": "file",
@@ -1364,13 +2982,14 @@
                 "README.md": {
                   "kind": "file",
                   "bytes": 2106,
-                  "sha256_12": "fa7058a2518c"
+                  "sha256_12": "2bb9666ab612"
                 }
               }
             },
             "services": {
               "kind": "directory",
               "files": 1,
+              "purpose": "Phase-1 Python statistics service (optional)",
               "entries": {
                 "README.md": {
                   "kind": "file",
@@ -1414,22 +3033,160 @@
             }
           }
         },
+        "tests": {
+          "kind": "directory",
+          "files": 12,
+          "purpose": "E2E, performance and security test specifications",
+          "entries": {
+            "assistant-reporting.test.ts": {
+              "kind": "file",
+              "bytes": 5692,
+              "sha256_12": "e58d60269b95"
+            },
+            "auth-security.test.ts": {
+              "kind": "file",
+              "bytes": 4219,
+              "sha256_12": "a9046fbf7dd3"
+            },
+            "backend-service.test.ts": {
+              "kind": "file",
+              "bytes": 8406,
+              "sha256_12": "82159b5a7092"
+            },
+            "data.test.ts": {
+              "kind": "file",
+              "bytes": 5875,
+              "sha256_12": "b4d278447934"
+            },
+            "growth.test.ts": {
+              "kind": "file",
+              "bytes": 18872,
+              "sha256_12": "1e4e197d2d8f"
+            },
+            "promote.test.ts": {
+              "kind": "file",
+              "bytes": 5598,
+              "sha256_12": "2b08cad400f6"
+            },
+            "ranking.test.ts": {
+              "kind": "file",
+              "bytes": 5312,
+              "sha256_12": "9819670763b5"
+            },
+            "setup.ts": {
+              "kind": "file",
+              "bytes": 268,
+              "sha256_12": "54e66068a544"
+            },
+            "stats.test.ts": {
+              "kind": "file",
+              "bytes": 4732,
+              "sha256_12": "9ae6f7125c23"
+            },
+            "team-intel.test.ts": {
+              "kind": "file",
+              "bytes": 5779,
+              "sha256_12": "483d3bf760e6"
+            },
+            "valuation.test.ts": {
+              "kind": "file",
+              "bytes": 3420,
+              "sha256_12": "97502c621dae"
+            },
+            "xi-sim.test.ts": {
+              "kind": "file",
+              "bytes": 5601,
+              "sha256_12": "34c82484049d"
+            }
+          }
+        },
+        "types": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "pdf-parse.d.ts": {
+              "kind": "file",
+              "bytes": 253,
+              "sha256_12": "bff8ea9eb411"
+            }
+          }
+        },
+        ".env.example": {
+          "kind": "file",
+          "bytes": 6774,
+          "sha256_12": "41639f4afcb0"
+        },
+        ".env.local": {
+          "kind": "file",
+          "bytes": 150,
+          "sha256_12": "9936f226dae6"
+        },
         "README.md": {
           "kind": "file",
-          "bytes": 4010,
-          "sha256_12": "8964be3d6aa0"
+          "bytes": 3888,
+          "sha256_12": "aa5e485cc21a"
+        },
+        "middleware.ts": {
+          "kind": "file",
+          "bytes": 2002,
+          "sha256_12": "2e937185d79d"
+        },
+        "next-env.d.ts": {
+          "kind": "file",
+          "bytes": 228,
+          "sha256_12": "9dd9d642cdb8"
+        },
+        "next.config.mjs": {
+          "kind": "file",
+          "bytes": 1984,
+          "sha256_12": "3fabccf4575b"
+        },
+        "package-lock.json": {
+          "kind": "file",
+          "bytes": 143083,
+          "sha256_12": "cc0c9491c1f8"
         },
         "package.json": {
           "kind": "file",
-          "bytes": 1400,
-          "sha256_12": "25d70e719418"
+          "bytes": 1427,
+          "sha256_12": "bdad1ebdb1a4"
+        },
+        "postcss.config.mjs": {
+          "kind": "file",
+          "bytes": 67,
+          "sha256_12": "08910ce1d5cd"
+        },
+        "tailwind.config.ts": {
+          "kind": "file",
+          "bytes": 1743,
+          "sha256_12": "e209c70c5186"
+        },
+        "tsconfig.json": {
+          "kind": "file",
+          "bytes": 594,
+          "sha256_12": "6d337ceea30f"
+        },
+        "tsconfig.tsbuildinfo": {
+          "kind": "file",
+          "bytes": 163499,
+          "sha256_12": "7363598738d1"
+        },
+        "vercel.json": {
+          "kind": "file",
+          "bytes": 1037,
+          "sha256_12": "27e3f4f5147a"
+        },
+        "vitest.config.ts": {
+          "kind": "file",
+          "bytes": 347,
+          "sha256_12": "abf748cad7a0"
         }
       }
     },
     "infrastructure": {
       "kind": "directory",
       "files": 7,
-      "purpose": "Copy-ready Vercel and Render templates (not active configuration)",
+      "purpose": "Vercel/Render/Docker templates (frontend/vercel.json is the active Vercel config)",
       "entries": {
         "render": {
           "kind": "directory",
@@ -1468,8 +3225,8 @@
             },
             "vercel.json": {
               "kind": "file",
-              "bytes": 1266,
-              "sha256_12": "a92ac56117be"
+              "bytes": 1305,
+              "sha256_12": "a102f00ce92a"
             }
           }
         },
@@ -1483,7 +3240,7 @@
     "legal": {
       "kind": "directory",
       "files": 6,
-      "purpose": "Privacy inventory, cookie inventory, licence obligations, terms outline",
+      "purpose": "Privacy/cookie/licence inventories",
       "entries": {
         "cookies": {
           "kind": "directory",
@@ -1544,12 +3301,12 @@
     "marketing-seo": {
       "kind": "directory",
       "files": 5,
-      "purpose": "Keyword map, content calendar, GA4 catalogue, outreach rules",
+      "purpose": "Keyword map, content calendar, GA4 catalogue",
       "entries": {
         "analytics": {
           "kind": "directory",
           "files": 1,
-          "purpose": "Product-metrics computation and dashboard definitions",
+          "purpose": "Product metrics computation and dashboard definitions",
           "entries": {
             "GA4_EVENT_CATALOGUE.md": {
               "kind": "file",
@@ -1634,7 +3391,7 @@
     "scripts": {
       "kind": "directory",
       "files": 4,
-      "purpose": "Quality-gate runner and maintenance/backup tooling",
+      "purpose": "Quality-gate runner and maintenance tooling",
       "entries": {
         "maintenance": {
           "kind": "directory",
@@ -1655,19 +3412,19 @@
         "README.md": {
           "kind": "file",
           "bytes": 1242,
-          "sha256_12": "3e483e470172"
+          "sha256_12": "3c89e50a10b6"
         },
         "verify.sh": {
           "kind": "file",
-          "bytes": 3175,
-          "sha256_12": "cc4ccd93d954"
+          "bytes": 4154,
+          "sha256_12": "db68d2b18979"
         }
       }
     },
     "security": {
       "kind": "directory",
       "files": 7,
-      "purpose": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
+      "purpose": "Rate limiting, spam, validation, audit, secrets, backup policies",
       "entries": {
         "AUDIT_EVENTS.md": {
           "kind": "file",
@@ -1706,6 +3463,63 @@
         }
       }
     },
+    "services": {
+      "kind": "directory",
+      "files": 6,
+      "purpose": "Phase-1 Python statistics service (optional)",
+      "entries": {
+        "analytics": {
+          "kind": "directory",
+          "files": 6,
+          "purpose": "Product metrics computation and dashboard definitions",
+          "entries": {
+            "app": {
+              "kind": "directory",
+              "files": 2,
+              "entries": {
+                "compute.py": {
+                  "kind": "file",
+                  "bytes": 7539,
+                  "sha256_12": "8ca970ff911b"
+                },
+                "main.py": {
+                  "kind": "file",
+                  "bytes": 3340,
+                  "sha256_12": "95beaef0ec09"
+                }
+              }
+            },
+            "tests": {
+              "kind": "directory",
+              "files": 1,
+              "purpose": "E2E, performance and security test specifications",
+              "entries": {
+                "test_compute.py": {
+                  "kind": "file",
+                  "bytes": 2576,
+                  "sha256_12": "8451809e0a79"
+                }
+              }
+            },
+            "Dockerfile": {
+              "kind": "file",
+              "bytes": 390,
+              "sha256_12": "ad7c76833d70"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 958,
+              "sha256_12": "22d091734fd4"
+            },
+            "requirements.txt": {
+              "kind": "file",
+              "bytes": 101,
+              "sha256_12": "662cf730d434"
+            }
+          }
+        }
+      }
+    },
     "tests": {
       "kind": "directory",
       "files": 5,
@@ -1741,7 +3555,7 @@
         "security": {
           "kind": "directory",
           "files": 1,
-          "purpose": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
+          "purpose": "Rate limiting, spam, validation, audit, secrets, backup policies",
           "entries": {
             "README.md": {
               "kind": "file",
@@ -1753,14 +3567,14 @@
         "README.md": {
           "kind": "file",
           "bytes": 1295,
-          "sha256_12": "384dfb2d334e"
+          "sha256_12": "920b7175791d"
         }
       }
     },
     ".env.example": {
       "kind": "file",
-      "bytes": 4881,
-      "sha256_12": "d938bc9cd61a"
+      "bytes": 5545,
+      "sha256_12": "429b6cbed1b7"
     },
     ".gitignore": {
       "kind": "file",
@@ -1774,23 +3588,23 @@
     },
     "CHANGELOG.md": {
       "kind": "file",
-      "bytes": 5838,
-      "sha256_12": "7247632fe109"
+      "bytes": 7917,
+      "sha256_12": "e658e91b30a5"
     },
     "CONTRIBUTING.md": {
       "kind": "file",
       "bytes": 3889,
-      "sha256_12": "f6d3bdcc25fc"
+      "sha256_12": "199602a634fd"
     },
     "Dockerfile": {
       "kind": "file",
-      "bytes": 2346,
-      "sha256_12": "51fbdd0c1ee3"
+      "bytes": 2519,
+      "sha256_12": "1b6f94195fe9"
     },
     "FILES_TO_IMPLEMENT.md": {
       "kind": "file",
-      "bytes": 5369,
-      "sha256_12": "a3693f48fe8c"
+      "bytes": 5787,
+      "sha256_12": "d663fd0bc714"
     },
     "LICENSE": {
       "kind": "file",
@@ -1799,58 +3613,43 @@
     },
     "MIGRATION_MAP.md": {
       "kind": "file",
-      "bytes": 7337,
-      "sha256_12": "fa7212fce45b"
+      "bytes": 6581,
+      "sha256_12": "830bd2de340f"
     },
     "PRD.md": {
       "kind": "file",
       "bytes": 13476,
-      "sha256_12": "41df0accb35d"
+      "sha256_12": "e4bda83d4893"
     },
     "PROJECT_BLUEPRINT.md": {
       "kind": "file",
       "bytes": 7328,
       "sha256_12": "caddfe6eb991"
     },
+    "PROJECT_STRUCTURE.json": {
+      "kind": "file",
+      "bytes": 51991,
+      "sha256_12": "d1b6393bae6b"
+    },
     "README.md": {
       "kind": "file",
-      "bytes": 15047,
-      "sha256_12": "75cb552da383"
+      "bytes": 15945,
+      "sha256_12": "4a35d70594c1"
     },
     "ROADMAP.md": {
       "kind": "file",
       "bytes": 4422,
-      "sha256_12": "5691ca4160a6"
+      "sha256_12": "46ff2775f395"
     },
     "docker-compose.yml": {
       "kind": "file",
-      "bytes": 3865,
-      "sha256_12": "8c2e2108c995"
+      "bytes": 4323,
+      "sha256_12": "36cd64d89363"
     },
     "package.json": {
       "kind": "file",
-      "bytes": 1622,
-      "sha256_12": "2082ced169f6"
+      "bytes": 1602,
+      "sha256_12": "dd2490ae797c"
     }
-  },
-  "fileCount": 216,
-  "verified": {
-    "jsonParsed": 3,
-    "yamlParsed": 4,
-    "pythonCompiled": 30,
-    "bashSyntaxChecked": 2,
-    "jsSyntaxChecked": "load.k6.js",
-    "pytest": "15 passed (backend/, httpx ASGI transport, no network)",
-    "markdownInternalLinks": "0 broken",
-    "secretScan": "clean (no private keys/tokens; only intentionally public NEXT_PUBLIC_* names)",
-    "excluded": [
-      "node_modules",
-      ".next",
-      "dist",
-      "caches",
-      ".env* (except .env.example)",
-      "store.json",
-      "backups"
-    ]
   }
 }

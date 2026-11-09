@@ -4,7 +4,7 @@ What remains between this structure package and a fully monorepo, feature-comple
 Grouped by phase; each item says **what**, **where**, and **how you know it is done**.
 
 Scope note: the 30 analytics features and the 14 website-quality features are **already implemented**
-and tested in the running application (151 vitest, 11 pytest, 58 smoke checks, production build). This
+and tested in the running application (168 vitest, 15 pytest, 58 smoke checks, production build). This
 file lists the structural work this package prepares, not the product itself.
 
 ---
@@ -47,14 +47,16 @@ file lists the structural work this package prepares, not the product itself.
 | 4.4 | Playwright for the 7 flows | `tests/e2e/README.md` | runs in CI on one browser |
 | 4.5 | Open-redirect fix on `/login?next=` | `docs/security/KNOWN_GAPS.md` | only same-origin relative paths accepted |
 
-## Phase 5 — the frontend/ split (documented, reversible)
+## Phase 5 — the frontend/ split ✅ DONE (2026-11-09)
 
-| # | Step | Reference | Done when |
-| --- | --- | --- | --- |
-| 5.1 | `git mv app lib components public types frontend/src/` | `frontend/README.md` §4 | `npm run typecheck && npm test && npm run build && npm run smoke` all green |
-| 5.2 | Update `tsconfig` paths, `vitest.config.ts`, `/Dockerfile` COPY lines, `docker-compose.yml` context | same | Docker image builds and starts |
-| 5.3 | Point Vercel/Render at `frontend` | `infrastructure/vercel/README.md` | deploy succeeds; `/api/health` 200 |
-| 5.4 | Move feature components into `frontend/src/features/*` | feature READMEs | no import cycles; tests still green |
+| # | Step | Status |
+| --- | --- | --- |
+| 5.1 | Move `app/ lib/ components/ public/ types/ tests/` into `frontend/` | **DONE** — typecheck, 168 tests, build (35 routes) and 58 smoke checks all green |
+| 5.2 | Update `tsconfig` paths, `vitest.config.ts`, `/Dockerfile` COPY lines, `docker-compose.yml` context | **DONE** — paths stay `@/*`; Docker/compose build from `frontend/` |
+| 5.3 | Point Vercel at `frontend` | **DONE in code** — set **Root Directory = `frontend`** in the Vercel dashboard (documented in `docs/deployment/VERCEL.md`) |
+| 5.4 | Move feature *components* into `frontend/src/features/*` | **NOT DONE** (optional) — `src/features/` holds specs today; moving components there is cosmetic and can break imports |
+| 5.5 | Wire the FastAPI service into the UI | **DONE** — `NEXT_PUBLIC_API_URL`, `/api/service/status`, `/api/service/describe`, `/system`, dashboard card |
+| 5.6 | Parity test TS ↔ Python statistics | **NOT DONE** — needed before FastAPI becomes the default engine for any number the UI shows |
 
 ## Phase 6 — product gaps (explicitly not built)
 
