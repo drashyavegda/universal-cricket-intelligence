@@ -1,6 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "//": "Reference copy. The ACTIVE Vercel config is frontend/vercel.json (Vercel Root Directory = frontend). This file is kept for deployments that build from the repository root, which this layout no longer does.",
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
