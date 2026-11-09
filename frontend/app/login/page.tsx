@@ -24,6 +24,7 @@ function LoginForm() {
   useEffect(() => { apiGet<Me>('/api/auth/me').then((r) => setAccounts(r.demoAccounts)).catch(() => undefined); }, []);
 
   const submit = async (e: React.FormEvent) => {
+    console.log('Login handler started');
     e.preventDefault();
     setBusy(true); setError(null);
     try {
