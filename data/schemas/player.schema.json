@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucip.local/schemas/player.schema.json",
+  "title": "Platform player",
+  "description": "Canonical player record as stored in the platform. Derived metrics are NOT part of this record — they are computed and carry their own provenance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "role"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,64}$" },
+    "name": { "type": "string", "minLength": 2, "maxLength": 80 },
+    "role": { "enum": ["batter", "bowler", "all-rounder", "wicket-keeper"] },
+    "teamId": { "type": ["string", "null"] },
+    "battingStyle": { "type": ["string", "null"], "maxLength": 40 },
+    "bowlingStyle": { "type": ["string", "null"], "maxLength": 40 },
+    "dateOfBirth": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "ISO date. Null means unknown age — the platform will not guess one."
+    },
+    "nationality": { "type": "string", "maxLength": 40 },
+    "state": { "type": ["string", "null"], "maxLength": 60 },
+    "isUncapped": { "type": "boolean" },
+    "provenance": {
+      "enum": ["DEMO", "UPLOADED", "MODEL"],
+      "description": "DEMO = synthetic seed data, UPLOADED = approved real data, MODEL = computed value."
+    },
+    "confidence": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Record completeness/consistency score. Not a judgement of ability."
+    },
+    "sourceDatasetId": { "type": ["string", "null"] },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  }
+}

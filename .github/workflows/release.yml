@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    name: Build, verify and attach the delivery archive
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.20.2"
+          cache: npm
+
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test --silent
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://example.invalid
+
+      - name: Create archive (no build output, caches or secrets)
+        run: |
+          git archive --format=zip --prefix=ucip/ \
+            -o "ucip-${GITHUB_REF_NAME}.zip" HEAD
+          unzip -t "ucip-${GITHUB_REF_NAME}.zip" | tail -1
+
+      - name: Confirm the archive excludes what it must
+        run: |
+          listing=$(unzip -l "ucip-${GITHUB_REF_NAME}.zip")
+          for banned in node_modules .next/ .env.local store.json .data/; do
+            if echo "$listing" | grep -q "$banned"; then echo "archive contains $banned"; exit 1; fi
+          done
+          echo "archive contents are clean"
+
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 || gh release create "$GITHUB_REF_NAME" --generate-notes
+          gh release upload "$GITHUB_REF_NAME" "ucip-${GITHUB_REF_NAME}.zip" --clobber

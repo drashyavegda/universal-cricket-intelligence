@@ -1,0 +1,26 @@
+# Render blueprint TEMPLATE — Python analytics service (backend/).
+# Only deploy this when you actually need heavy compute; the app is fully functional without it.
+services:
+  - type: web
+    name: ucip-analytics
+    runtime: python
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT --proxy-headers
+    healthCheckPath: /health
+    autoDeploy: false          # parity tests must pass first; see docs/deployment/RENDER.md
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: BACKEND_ENV
+        value: production
+      - key: BACKEND_LOG_LEVEL
+        value: info
+      - key: BACKEND_CORS_ORIGINS
+        value: https://your-frontend.example.com
+      - key: ANALYTICS_SERVICE_TOKEN
+        sync: false            # set in the dashboard; unset = local-trust mode (reported by /ready)
+      - key: DATABASE_URL
+        sync: false

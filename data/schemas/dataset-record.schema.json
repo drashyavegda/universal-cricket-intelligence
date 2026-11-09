@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucip.local/schemas/dataset-record.schema.json",
+  "title": "Dataset record",
+  "description": "One parsed row from an upload. `raw` is exactly what the file said; `mapped` is the platform's interpretation; `issues` explains every problem found.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "datasetId", "raw", "mapped", "issues"],
+  "properties": {
+    "id": { "type": "string" },
+    "datasetId": { "type": "string" },
+    "playerId": { "type": ["string", "null"] },
+    "raw": {
+      "type": "object",
+      "description": "Untouched cell values keyed by source header.",
+      "additionalProperties": { "type": ["string", "number", "boolean", "null"] }
+    },
+    "mapped": {
+      "type": "object",
+      "description": "Platform fields after synonym mapping.",
+      "additionalProperties": { "type": ["string", "number", "boolean", "null"] }
+    },
+    "unmappedColumns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Source headers with no platform equivalent. Preserved, never discarded."
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "field", "message"],
+        "properties": {
+          "severity": { "enum": ["error", "warning", "info"] },
+          "field": { "type": "string" },
+          "message": { "type": "string" },
+          "row": { "type": ["integer", "null"] }
+        }
+      }
+    },
+    "createdAt": { "type": "string", "format": "date-time" }
+  }
+}

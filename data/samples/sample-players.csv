@@ -1,0 +1,4 @@
+player,team,role,date_of_birth,matches,innings,runs,balls_faced,strike_rate,average,wickets,economy,state,is_uncapped
+A. Synthetic,Demo Royals,batter,2004-03-11,14,14,412,318,129.56,31.69,0,,Maharashtra,true
+B. Placeholder,Demo Royals,bowler,2001-08-02,12,7,58,44,131.82,11.60,15,7.84,Gujarat,false
+C. Example,Desert Kings,all-rounder,,9,9,201,168,119.64,22.33,6,8.10,Rajasthan,true

@@ -1,0 +1,11 @@
+# Runtime — pinned. Python 3.11+ (3.12 tested in the container image).
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.1
+numpy==2.2.1
+
+# Test / tooling (installed in CI and locally; not needed at runtime)
+pytest==8.3.4
+httpx==0.28.1
+ruff==0.8.4

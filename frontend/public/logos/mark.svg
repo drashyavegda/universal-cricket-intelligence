@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Universal Cricket Intelligence Platform">
+  <rect width="512" height="512" fill="#06070D"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#10B981" stroke-width="14"/>
+  <circle cx="256" cy="256" r="44" fill="#10B981"/>
+  <path d="M256 60v48M256 404v48M60 256h48M404 256h48" stroke="#D4A72C" stroke-width="14" stroke-linecap="round"/>
+  <text x="256" y="470" font-family="system-ui, sans-serif" font-size="34" fill="#8FA5BC" text-anchor="middle" letter-spacing="6">UCIP</text>
+</svg>

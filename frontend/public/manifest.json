@@ -1,0 +1,47 @@
+{
+  "name": "Universal Cricket Intelligence Platform",
+  "short_name": "Cricket Intel",
+  "description": "Cricket analytics, scouting, auction strategy and match intelligence with explainable AI narration.",
+  "start_url": "/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#06070D",
+  "theme_color": "#0A1020",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "sports",
+    "productivity",
+    "business"
+  ],
+  "icons": [
+    {
+      "src": "/favicon/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/logos/mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Command overview",
+      "url": "/dashboard"
+    },
+    {
+      "name": "Talent discovery",
+      "url": "/talent"
+    },
+    {
+      "name": "Auction room",
+      "url": "/auction"
+    }
+  ],
+  "//": "PNG icons (192/512, maskable) are still needed for full install support on Android. Only SVG is shipped today because no binary asset generation pipeline exists in this repository."
+}

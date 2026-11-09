@@ -1,0 +1,69 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 3 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  secrets-and-deps:
+    name: Secret scan · dependency audit · policy greps
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.20.2"
+          cache: npm
+
+      - name: Secret pattern scan
+        run: |
+          patterns='sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC )?PRIVATE KEY'
+          hits=$(git ls-files -z | xargs -0 grep -IlE "$patterns" || true)
+          # The security documentation quotes the patterns themselves; ignore those two files.
+          hits=$(echo "$hits" | grep -v -E "^(security/SECRETS_MANAGEMENT.md|scripts/verify.sh)$" || true)
+          if [ -n "$hits" ]; then echo "Potential secrets:"; echo "$hits"; exit 1; fi
+          echo "clean"
+
+      - name: Dependency audit (runtime only)
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: No wildcard CORS anywhere
+        run: |
+          if grep -rn --include="*.py" --include="*.ts" --include="*.mjs" -E 'allow_origins\s*=\s*\[\s*["'"'"']\*' .; then
+            echo "Wildcard CORS found — use an explicit allow-list"; exit 1
+          fi
+
+      - name: No secrets in client-exposed variables
+        run: |
+          # NEXT_PUBLIC_ values are shipped to the browser. Flag names that imply a secret.
+          # Deliberately public keys are excluded: Turnstile SITE key, Supabase ANON key,
+          # GA4 measurement id. Anything else ending in KEY/TOKEN/SECRET/PASSWORD is a bug.
+          hits=$(grep -rnE "NEXT_PUBLIC_[A-Z0-9_]*(SECRET|TOKEN|PASSWORD|_KEY)" \
+                   --include="*.ts" --include="*.tsx" --include="*.mjs" . \
+                 | grep -vE "SITE_KEY|ANON_KEY|PUBLIC_KEY|MEASUREMENT_ID" || true)
+          if [ -n "$hits" ]; then
+            echo "$hits"
+            echo "A NEXT_PUBLIC_ variable looks like a secret — it would ship to the browser"
+            exit 1
+          fi
+          echo "no secret-looking client variables"
+
+      - name: Every mutating API route is guarded
+        run: |
+          fail=0
+          for f in $(grep -rl "export async function POST\|export async function PATCH\|export async function DELETE" app/api 2>/dev/null); do
+            case "$f" in
+              app/api/health/*|app/api/auth/login/*|app/api/auth/me/*|app/api/public/feedback/*|app/api/public/*) continue ;;
+            esac
+            grep -qE "guard\(|requireUser\(|requireSession\(" "$f" || { echo "UNGUARDED: $f"; fail=1; }
+          done
+          exit $fail

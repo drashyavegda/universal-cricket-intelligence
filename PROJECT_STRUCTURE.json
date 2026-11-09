@@ -1,0 +1,1856 @@
+{
+  "$comment": "Generated from the package contents. Keys are real paths; nothing is aspirational.",
+  "name": "Universal-Cricket-Intelligence-Platform",
+  "packageVersion": "1.0.0",
+  "generatedFor": "UCIP step 3 \u2014 structure package",
+  "runningApplication": {
+    "note": "The production build remains at the repository root of the existing project and is NOT modified by this package.",
+    "stack": [
+      "Next.js 14.2.15 (App Router)",
+      "React 18.3.1",
+      "TypeScript 5.6.2",
+      "Tailwind 3.4.13",
+      "vitest 2.1.1",
+      "FastAPI 0.115.6 (optional service)"
+    ],
+    "pages": 29,
+    "layouts": 25,
+    "apiRoutes": 44,
+    "libCoreModules": 40,
+    "tests": {
+      "vitest": 151,
+      "pytest": 11,
+      "smokeChecks": 58,
+      "buildRoutes": 34
+    }
+  },
+  "featureCounts": {
+    "platformFeatures": 30,
+    "websiteFeatures": 14,
+    "documentedApiRoutes": 44,
+    "adrs": 9
+  },
+  "folderPurpose": {
+    ".github": "CI, security and release automation",
+    "app": "Next.js App Router in the running application (this package documents it, does not copy it)",
+    "backend": "Optional FastAPI compute service: config, logging, CORS allow-list, health, statistics, worker scaffold",
+    "database": "PostgreSQL migrations, reference schema, backup procedure",
+    "data": "JSON Schemas and synthetic sample layout for ingestion",
+    "docs": "PRD, architecture, API, database, deployment, security, testing, user guides, ADRs",
+    "frontend": "Layer map, feature specs, asset folders and config/constants/utils for the phase-5 split",
+    "infrastructure": "Copy-ready Vercel and Render templates (not active configuration)",
+    "legal": "Privacy inventory, cookie inventory, licence obligations, terms outline",
+    "marketing-seo": "Keyword map, content calendar, GA4 catalogue, outreach rules",
+    "reports": "Report definitions (no generated data)",
+    "scripts": "Quality-gate runner and maintenance/backup tooling",
+    "security": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
+    "analytics": "Product-metrics computation and dashboard definitions",
+    "tests": "E2E, performance and security test specifications"
+  },
+  "contents": {
+    ".github": {
+      "kind": "directory",
+      "files": 3,
+      "purpose": "CI, security and release automation",
+      "entries": {
+        "workflows": {
+          "kind": "directory",
+          "files": 3,
+          "entries": {
+            "ci.yml": {
+              "kind": "file",
+              "bytes": 1481,
+              "sha256_12": "4f6f705e0152"
+            },
+            "release.yml": {
+              "kind": "file",
+              "bytes": 1491,
+              "sha256_12": "4facdc831fa1"
+            },
+            "security.yml": {
+              "kind": "file",
+              "bytes": 2733,
+              "sha256_12": "349c587363b5"
+            }
+          }
+        }
+      }
+    },
+    "analytics": {
+      "kind": "directory",
+      "files": 6,
+      "purpose": "Product-metrics computation and dashboard definitions",
+      "entries": {
+        "dashboards": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1584,
+              "sha256_12": "88d179f62953"
+            }
+          }
+        },
+        "queries": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 726,
+              "sha256_12": "f532d0a399b8"
+            },
+            "player_form.sql": {
+              "kind": "file",
+              "bytes": 1357,
+              "sha256_12": "7780a1e4642c"
+            }
+          }
+        },
+        "reports": {
+          "kind": "directory",
+          "files": 1,
+          "purpose": "Report definitions (no generated data)",
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 872,
+              "sha256_12": "4d43e41317ec"
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1126,
+          "sha256_12": "dc7f72ae544d"
+        },
+        "metrics.py": {
+          "kind": "file",
+          "bytes": 8497,
+          "sha256_12": "992ff4893538"
+        }
+      }
+    },
+    "backend": {
+      "kind": "directory",
+      "files": 46,
+      "purpose": "Optional FastAPI compute service: config, logging, CORS allow-list, health, statistics, worker scaffold",
+      "entries": {
+        "agents": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 619,
+              "sha256_12": "105cb08c00e0"
+            }
+          }
+        },
+        "ai": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 676,
+              "sha256_12": "be53d8a3568f"
+            }
+          }
+        },
+        "analytics": {
+          "kind": "directory",
+          "files": 1,
+          "purpose": "Product-metrics computation and dashboard definitions",
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 414,
+              "sha256_12": "d8a8bccd7512"
+            }
+          }
+        },
+        "api": {
+          "kind": "directory",
+          "files": 7,
+          "entries": {
+            "routes": {
+              "kind": "directory",
+              "files": 3,
+              "entries": {
+                "__init__.py": {
+                  "kind": "file",
+                  "bytes": 96,
+                  "sha256_12": "a01389572f6a"
+                },
+                "health.py": {
+                  "kind": "file",
+                  "bytes": 2030,
+                  "sha256_12": "9889c007ff1e"
+                },
+                "statistics.py": {
+                  "kind": "file",
+                  "bytes": 1900,
+                  "sha256_12": "cec3e6dd50af"
+                }
+              }
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 789,
+              "sha256_12": "d677d92e847c"
+            },
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 167,
+              "sha256_12": "9f3457a180cf"
+            },
+            "deps.py": {
+              "kind": "file",
+              "bytes": 1051,
+              "sha256_12": "bbdac91360e2"
+            },
+            "router.py": {
+              "kind": "file",
+              "bytes": 336,
+              "sha256_12": "6cc12f871669"
+            }
+          }
+        },
+        "authentication": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 539,
+              "sha256_12": "9a38cc2b8475"
+            }
+          }
+        },
+        "authorization": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 478,
+              "sha256_12": "4de1021c0917"
+            }
+          }
+        },
+        "background_workers": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 248,
+              "sha256_12": "6800fa1cf9dd"
+            },
+            "worker.py": {
+              "kind": "file",
+              "bytes": 1510,
+              "sha256_12": "65fc8fae4718"
+            }
+          }
+        },
+        "core": {
+          "kind": "directory",
+          "files": 4,
+          "entries": {
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 241,
+              "sha256_12": "19dec72a4037"
+            },
+            "config.py": {
+              "kind": "file",
+              "bytes": 2072,
+              "sha256_12": "6d01e957b076"
+            },
+            "errors.py": {
+              "kind": "file",
+              "bytes": 1433,
+              "sha256_12": "ac6135efcb10"
+            },
+            "logging.py": {
+              "kind": "file",
+              "bytes": 1606,
+              "sha256_12": "ff2d29015143"
+            }
+          }
+        },
+        "database": {
+          "kind": "directory",
+          "files": 1,
+          "purpose": "PostgreSQL migrations, reference schema, backup procedure",
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 881,
+              "sha256_12": "64e26c4faf66"
+            }
+          }
+        },
+        "integrations": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 683,
+              "sha256_12": "2e7002ef3dad"
+            }
+          }
+        },
+        "middleware": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 100,
+              "sha256_12": "92630ade85e2"
+            },
+            "request_id.py": {
+              "kind": "file",
+              "bytes": 1101,
+              "sha256_12": "6c51111c2722"
+            }
+          }
+        },
+        "models": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 850,
+              "sha256_12": "03907baabcdf"
+            }
+          }
+        },
+        "monitoring": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 329,
+              "sha256_12": "665009bada7d"
+            },
+            "metrics.py": {
+              "kind": "file",
+              "bytes": 1944,
+              "sha256_12": "d793eae94165"
+            }
+          }
+        },
+        "reporting": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 550,
+              "sha256_12": "bd91ab8a1148"
+            }
+          }
+        },
+        "schemas": {
+          "kind": "directory",
+          "files": 3,
+          "entries": {
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 197,
+              "sha256_12": "96a2d8b3035a"
+            },
+            "common.py": {
+              "kind": "file",
+              "bytes": 642,
+              "sha256_12": "09ad93a1db3f"
+            },
+            "statistics.py": {
+              "kind": "file",
+              "bytes": 2046,
+              "sha256_12": "1ed8c5e39296"
+            }
+          }
+        },
+        "security": {
+          "kind": "directory",
+          "files": 2,
+          "purpose": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
+          "entries": {
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 101,
+              "sha256_12": "48ca388cbf64"
+            },
+            "auth.py": {
+              "kind": "file",
+              "bytes": 701,
+              "sha256_12": "1004f35a19f8"
+            }
+          }
+        },
+        "services": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 268,
+              "sha256_12": "61807ce8fd6c"
+            },
+            "statistics_service.py": {
+              "kind": "file",
+              "bytes": 9705,
+              "sha256_12": "b19d00437078"
+            }
+          }
+        },
+        "simulations": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 743,
+              "sha256_12": "81477e2c6171"
+            }
+          }
+        },
+        "storage": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 435,
+              "sha256_12": "ab76dc03ddae"
+            }
+          }
+        },
+        "tasks": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 148,
+              "sha256_12": "de33885de224"
+            },
+            "report_jobs.py": {
+              "kind": "file",
+              "bytes": 1419,
+              "sha256_12": "d9ef4f30e681"
+            }
+          }
+        },
+        "tests": {
+          "kind": "directory",
+          "files": 4,
+          "purpose": "E2E, performance and security test specifications",
+          "entries": {
+            "__init__.py": {
+              "kind": "file",
+              "bytes": 101,
+              "sha256_12": "3dcd8ffcb95d"
+            },
+            "conftest.py": {
+              "kind": "file",
+              "bytes": 683,
+              "sha256_12": "1e3e5a5a50c0"
+            },
+            "test_health.py": {
+              "kind": "file",
+              "bytes": 1370,
+              "sha256_12": "3e169c2c4783"
+            },
+            "test_statistics.py": {
+              "kind": "file",
+              "bytes": 2836,
+              "sha256_12": "e43060131dd5"
+            }
+          }
+        },
+        ".dockerignore": {
+          "kind": "file",
+          "bytes": 78,
+          "sha256_12": "8b9d7c25febb"
+        },
+        "Dockerfile": {
+          "kind": "file",
+          "bytes": 844,
+          "sha256_12": "544a49545ced"
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 3025,
+          "sha256_12": "fc80762380ca"
+        },
+        "main.py": {
+          "kind": "file",
+          "bytes": 3653,
+          "sha256_12": "2d43fd277508"
+        },
+        "requirements.txt": {
+          "kind": "file",
+          "bytes": 282,
+          "sha256_12": "cdfb43a75922"
+        }
+      }
+    },
+    "data": {
+      "kind": "directory",
+      "files": 6,
+      "purpose": "JSON Schemas and synthetic sample layout for ingestion",
+      "entries": {
+        "samples": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 691,
+              "sha256_12": "7325205498e9"
+            },
+            "sample-players.csv": {
+              "kind": "file",
+              "bytes": 383,
+              "sha256_12": "0eef0e20e0ad"
+            }
+          }
+        },
+        "schemas": {
+          "kind": "directory",
+          "files": 3,
+          "entries": {
+            "dataset-record.schema.json": {
+              "kind": "file",
+              "bytes": 1604,
+              "sha256_12": "c031e9d607fa"
+            },
+            "feedback.schema.json": {
+              "kind": "file",
+              "bytes": 1267,
+              "sha256_12": "070b9fe5a4e6"
+            },
+            "player.schema.json": {
+              "kind": "file",
+              "bytes": 1721,
+              "sha256_12": "c715f3844086"
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1504,
+          "sha256_12": "038fbdadf690"
+        }
+      }
+    },
+    "database": {
+      "kind": "directory",
+      "files": 6,
+      "purpose": "PostgreSQL migrations, reference schema, backup procedure",
+      "entries": {
+        "backups": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1214,
+              "sha256_12": "ea49ab757564"
+            }
+          }
+        },
+        "migrations": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "0001_init.sql": {
+              "kind": "file",
+              "bytes": 9175,
+              "sha256_12": "27c2fc00f706"
+            }
+          }
+        },
+        "schemas": {
+          "kind": "directory",
+          "files": 3,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 739,
+              "sha256_12": "428427376525"
+            },
+            "public_schema.sql": {
+              "kind": "file",
+              "bytes": 1754,
+              "sha256_12": "d6471360c5ff"
+            },
+            "views.sql": {
+              "kind": "file",
+              "bytes": 1468,
+              "sha256_12": "94fb229381d6"
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1416,
+          "sha256_12": "b0a16071e58c"
+        }
+      }
+    },
+    "docs": {
+      "kind": "directory",
+      "files": 49,
+      "purpose": "PRD, architecture, API, database, deployment, security, testing, user guides, ADRs",
+      "entries": {
+        "api": {
+          "kind": "directory",
+          "files": 4,
+          "entries": {
+            "API_REFERENCE.md": {
+              "kind": "file",
+              "bytes": 6872,
+              "sha256_12": "d96542b15d91"
+            },
+            "AUTHENTICATION.md": {
+              "kind": "file",
+              "bytes": 3021,
+              "sha256_12": "5b729a33f62a"
+            },
+            "ERROR_CODES.md": {
+              "kind": "file",
+              "bytes": 2931,
+              "sha256_12": "3a67d0f579b3"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 548,
+              "sha256_12": "3907863bfdc9"
+            }
+          }
+        },
+        "architecture": {
+          "kind": "directory",
+          "files": 6,
+          "entries": {
+            "AI_LAYER_CONTRACT.md": {
+              "kind": "file",
+              "bytes": 3256,
+              "sha256_12": "4422590a73b0"
+            },
+            "ARCHITECTURE_OVERVIEW.md": {
+              "kind": "file",
+              "bytes": 4047,
+              "sha256_12": "dcea2fd47b7f"
+            },
+            "DATA_FLOW_AND_PROVENANCE.md": {
+              "kind": "file",
+              "bytes": 3682,
+              "sha256_12": "f960dd5d0ae8"
+            },
+            "FEATURE_MODULE_MAP.md": {
+              "kind": "file",
+              "bytes": 4587,
+              "sha256_12": "020593f01b97"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 769,
+              "sha256_12": "38a25cc58921"
+            },
+            "WEBSITE_QUALITY_MODULE.md": {
+              "kind": "file",
+              "bytes": 4785,
+              "sha256_12": "6083885252d2"
+            }
+          }
+        },
+        "database": {
+          "kind": "directory",
+          "files": 3,
+          "purpose": "PostgreSQL migrations, reference schema, backup procedure",
+          "entries": {
+            "DATA_RETENTION.md": {
+              "kind": "file",
+              "bytes": 2225,
+              "sha256_12": "e84e5e4dfe95"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 509,
+              "sha256_12": "a23d32656f2d"
+            },
+            "SCHEMA_REFERENCE.md": {
+              "kind": "file",
+              "bytes": 5773,
+              "sha256_12": "2c07fda1025a"
+            }
+          }
+        },
+        "decisions": {
+          "kind": "directory",
+          "files": 10,
+          "entries": {
+            "ADR-0001-single-nextjs-application.md": {
+              "kind": "file",
+              "bytes": 1667,
+              "sha256_12": "997e77aa57ac"
+            },
+            "ADR-0002-deterministic-analytics-first.md": {
+              "kind": "file",
+              "bytes": 1416,
+              "sha256_12": "6d99807d095a"
+            },
+            "ADR-0003-json-store-with-postgres-path.md": {
+              "kind": "file",
+              "bytes": 1229,
+              "sha256_12": "63ccce7c6781"
+            },
+            "ADR-0004-metadata-registry.md": {
+              "kind": "file",
+              "bytes": 1255,
+              "sha256_12": "748882818809"
+            },
+            "ADR-0005-public-private-route-split.md": {
+              "kind": "file",
+              "bytes": 1343,
+              "sha256_12": "0137b93113ee"
+            },
+            "ADR-0006-form-hardening-without-captcha-default.md": {
+              "kind": "file",
+              "bytes": 1230,
+              "sha256_12": "76ade8c10a60"
+            },
+            "ADR-0007-consent-gated-analytics.md": {
+              "kind": "file",
+              "bytes": 1261,
+              "sha256_12": "da8957b31a80"
+            },
+            "ADR-0008-fastapi-service-on-render.md": {
+              "kind": "file",
+              "bytes": 1327,
+              "sha256_12": "2dcfd2c26654"
+            },
+            "ADR-0009-no-testimonial-structured-data.md": {
+              "kind": "file",
+              "bytes": 996,
+              "sha256_12": "4f73250f1f20"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 1307,
+              "sha256_12": "f7a1dd18d90a"
+            }
+          }
+        },
+        "deployment": {
+          "kind": "directory",
+          "files": 8,
+          "entries": {
+            "ENVIRONMENT_VARIABLES.md": {
+              "kind": "file",
+              "bytes": 4460,
+              "sha256_12": "3523f1541df5"
+            },
+            "LOCAL_DEVELOPMENT.md": {
+              "kind": "file",
+              "bytes": 2195,
+              "sha256_12": "7cbeb16fc784"
+            },
+            "PRODUCTION_BUILD.md": {
+              "kind": "file",
+              "bytes": 2089,
+              "sha256_12": "246b1f9ab07f"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 1389,
+              "sha256_12": "d9111f77fd58"
+            },
+            "RENDER.md": {
+              "kind": "file",
+              "bytes": 3821,
+              "sha256_12": "90b979cf2486"
+            },
+            "SUPABASE.md": {
+              "kind": "file",
+              "bytes": 3204,
+              "sha256_12": "2183b747afb1"
+            },
+            "TROUBLESHOOTING.md": {
+              "kind": "file",
+              "bytes": 4812,
+              "sha256_12": "7c3fb8d02638"
+            },
+            "VERCEL.md": {
+              "kind": "file",
+              "bytes": 4064,
+              "sha256_12": "cc2f3a672220"
+            }
+          }
+        },
+        "requirements": {
+          "kind": "directory",
+          "files": 5,
+          "entries": {
+            "FEATURE_REQUIREMENTS_30.md": {
+              "kind": "file",
+              "bytes": 14710,
+              "sha256_12": "b1cf55de87f6"
+            },
+            "GLOSSARY.md": {
+              "kind": "file",
+              "bytes": 2539,
+              "sha256_12": "dc77e967312f"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 734,
+              "sha256_12": "157d2bea6932"
+            },
+            "USER_PERSONAS_AND_JOBS.md": {
+              "kind": "file",
+              "bytes": 4197,
+              "sha256_12": "73fd647e8c5c"
+            },
+            "WEBSITE_REQUIREMENTS_14.md": {
+              "kind": "file",
+              "bytes": 4086,
+              "sha256_12": "6e881c9186a2"
+            }
+          }
+        },
+        "security": {
+          "kind": "directory",
+          "files": 4,
+          "purpose": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
+          "entries": {
+            "KNOWN_GAPS.md": {
+              "kind": "file",
+              "bytes": 2947,
+              "sha256_12": "933325b71785"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 794,
+              "sha256_12": "ae769f0a1666"
+            },
+            "SECURITY_PRACTICES.md": {
+              "kind": "file",
+              "bytes": 4636,
+              "sha256_12": "f289c8a9fb42"
+            },
+            "THREAT_MODEL.md": {
+              "kind": "file",
+              "bytes": 3992,
+              "sha256_12": "ebe5163ecac6"
+            }
+          }
+        },
+        "testing": {
+          "kind": "directory",
+          "files": 3,
+          "entries": {
+            "MANUAL_QA_CHECKLIST.md": {
+              "kind": "file",
+              "bytes": 2831,
+              "sha256_12": "5c29737909a5"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 545,
+              "sha256_12": "d70e43275059"
+            },
+            "TEST_STRATEGY.md": {
+              "kind": "file",
+              "bytes": 4306,
+              "sha256_12": "615eabb8f5de"
+            }
+          }
+        },
+        "user-guides": {
+          "kind": "directory",
+          "files": 5,
+          "entries": {
+            "ADMIN_GUIDE.md": {
+              "kind": "file",
+              "bytes": 3049,
+              "sha256_12": "f0489a4686ce"
+            },
+            "ANALYST_GUIDE.md": {
+              "kind": "file",
+              "bytes": 3187,
+              "sha256_12": "a3c455c9234a"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 620,
+              "sha256_12": "c51f0f308d5a"
+            },
+            "RR_SCOUTING_WORKSPACE.md": {
+              "kind": "file",
+              "bytes": 3554,
+              "sha256_12": "158123166954"
+            },
+            "SCOUT_GUIDE.md": {
+              "kind": "file",
+              "bytes": 2435,
+              "sha256_12": "280ee7cfbb1d"
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 4012,
+          "sha256_12": "bc0ca6c89b71"
+        }
+      }
+    },
+    "frontend": {
+      "kind": "directory",
+      "files": 47,
+      "purpose": "Layer map, feature specs, asset folders and config/constants/utils for the phase-5 split",
+      "entries": {
+        "public": {
+          "kind": "directory",
+          "files": 8,
+          "entries": {
+            "favicon": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "icon.svg": {
+                  "kind": "file",
+                  "bytes": 595,
+                  "sha256_12": "8c269ec98558"
+                }
+              }
+            },
+            "fonts": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 778,
+                  "sha256_12": "bef0636fde1b"
+                }
+              }
+            },
+            "icons": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 517,
+                  "sha256_12": "5521d41d0968"
+                }
+              }
+            },
+            "images": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 625,
+                  "sha256_12": "f91e8a33554d"
+                }
+              }
+            },
+            "logos": {
+              "kind": "directory",
+              "files": 2,
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 533,
+                  "sha256_12": "2c063faa851f"
+                },
+                "mark.svg": {
+                  "kind": "file",
+                  "bytes": 578,
+                  "sha256_12": "f21a2625e2eb"
+                }
+              }
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 1684,
+              "sha256_12": "8d2261ec4e4d"
+            },
+            "manifest.json": {
+              "kind": "file",
+              "bytes": 1159,
+              "sha256_12": "8d35e2b826a5"
+            }
+          }
+        },
+        "src": {
+          "kind": "directory",
+          "files": 37,
+          "entries": {
+            "app": {
+              "kind": "directory",
+              "files": 1,
+              "purpose": "Next.js App Router in the running application (this package documents it, does not copy it)",
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 2796,
+                  "sha256_12": "d83629a69631"
+                }
+              }
+            },
+            "components": {
+              "kind": "directory",
+              "files": 10,
+              "entries": {
+                "analytics": {
+                  "kind": "directory",
+                  "files": 1,
+                  "purpose": "Product-metrics computation and dashboard definitions",
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 671,
+                      "sha256_12": "7f9b3dd52363"
+                    }
+                  }
+                },
+                "auction": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 665,
+                      "sha256_12": "57b48bc14053"
+                    }
+                  }
+                },
+                "common": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 739,
+                      "sha256_12": "86caae40b7ed"
+                    }
+                  }
+                },
+                "dashboard": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 707,
+                      "sha256_12": "2f01303c140c"
+                    }
+                  }
+                },
+                "forms": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 739,
+                      "sha256_12": "7b7b150bcbbf"
+                    }
+                  }
+                },
+                "layout": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 837,
+                      "sha256_12": "5d7f99d3dd45"
+                    }
+                  }
+                },
+                "players": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 792,
+                      "sha256_12": "653ad74bb56a"
+                    }
+                  }
+                },
+                "reports": {
+                  "kind": "directory",
+                  "files": 1,
+                  "purpose": "Report definitions (no generated data)",
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 668,
+                      "sha256_12": "fc1a892f41d9"
+                    }
+                  }
+                },
+                "scouting": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 702,
+                      "sha256_12": "7f3b1d34c2b1"
+                    }
+                  }
+                },
+                "simulation": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 682,
+                      "sha256_12": "1d52cfeb46fc"
+                    }
+                  }
+                }
+              }
+            },
+            "config": {
+              "kind": "directory",
+              "files": 2,
+              "entries": {
+                "routes.ts": {
+                  "kind": "file",
+                  "bytes": 1673,
+                  "sha256_12": "b8e6477fc091"
+                },
+                "site.config.ts": {
+                  "kind": "file",
+                  "bytes": 1483,
+                  "sha256_12": "8c1cab7c6c5d"
+                }
+              }
+            },
+            "constants": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "navigation.ts": {
+                  "kind": "file",
+                  "bytes": 4621,
+                  "sha256_12": "74b5d138781f"
+                }
+              }
+            },
+            "features": {
+              "kind": "directory",
+              "files": 17,
+              "entries": {
+                "auction-strategy": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1285,
+                      "sha256_12": "a93cda6c61b2"
+                    }
+                  }
+                },
+                "career-trajectory": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1219,
+                      "sha256_12": "322e2cef63b9"
+                    }
+                  }
+                },
+                "conversational-ai": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1311,
+                      "sha256_12": "dcca00f389a9"
+                    }
+                  }
+                },
+                "data-ingestion": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1351,
+                      "sha256_12": "48715b33cdfa"
+                    }
+                  }
+                },
+                "global-scouting": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1218,
+                      "sha256_12": "b9d5c7e37e1b"
+                    }
+                  }
+                },
+                "match-intelligence": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1240,
+                      "sha256_12": "2953770bb83e"
+                    }
+                  }
+                },
+                "opposition-scouting": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1212,
+                      "sha256_12": "7cc0c09b3e31"
+                    }
+                  }
+                },
+                "player-comparison": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1219,
+                      "sha256_12": "ed46ad4d2f74"
+                    }
+                  }
+                },
+                "player-intelligence": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1351,
+                      "sha256_12": "20358799b908"
+                    }
+                  }
+                },
+                "player-ranking": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1210,
+                      "sha256_12": "1ab3a4c7ea1d"
+                    }
+                  }
+                },
+                "predictive-analytics": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1212,
+                      "sha256_12": "ac8c785e84af"
+                    }
+                  }
+                },
+                "squad-intelligence": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1197,
+                      "sha256_12": "d6531972cf19"
+                    }
+                  }
+                },
+                "statistical-analysis": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1285,
+                      "sha256_12": "73c69925dcc9"
+                    }
+                  }
+                },
+                "talent-discovery": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1280,
+                      "sha256_12": "3126105fee10"
+                    }
+                  }
+                },
+                "venue-analysis": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1178,
+                      "sha256_12": "8fb2511d820e"
+                    }
+                  }
+                },
+                "workload-management": {
+                  "kind": "directory",
+                  "files": 1,
+                  "entries": {
+                    "README.md": {
+                      "kind": "file",
+                      "bytes": 1230,
+                      "sha256_12": "71f40d839eac"
+                    }
+                  }
+                },
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 1503,
+                  "sha256_12": "e73e692a6134"
+                }
+              }
+            },
+            "hooks": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 707,
+                  "sha256_12": "e31938ffd290"
+                }
+              }
+            },
+            "lib": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 2106,
+                  "sha256_12": "fa7058a2518c"
+                }
+              }
+            },
+            "services": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 563,
+                  "sha256_12": "149f0b337816"
+                }
+              }
+            },
+            "stores": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 571,
+                  "sha256_12": "077c7261a9c2"
+                }
+              }
+            },
+            "types": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "README.md": {
+                  "kind": "file",
+                  "bytes": 572,
+                  "sha256_12": "bee05c08882c"
+                }
+              }
+            },
+            "utils": {
+              "kind": "directory",
+              "files": 1,
+              "entries": {
+                "format.ts": {
+                  "kind": "file",
+                  "bytes": 2809,
+                  "sha256_12": "cb0e8aaf7ba4"
+                }
+              }
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 4010,
+          "sha256_12": "8964be3d6aa0"
+        },
+        "package.json": {
+          "kind": "file",
+          "bytes": 1400,
+          "sha256_12": "25d70e719418"
+        }
+      }
+    },
+    "infrastructure": {
+      "kind": "directory",
+      "files": 7,
+      "purpose": "Copy-ready Vercel and Render templates (not active configuration)",
+      "entries": {
+        "render": {
+          "kind": "directory",
+          "files": 4,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1803,
+              "sha256_12": "412bcc8364c6"
+            },
+            "analytics-service.yaml": {
+              "kind": "file",
+              "bytes": 978,
+              "sha256_12": "e8972dbfa004"
+            },
+            "web-service.yaml": {
+              "kind": "file",
+              "bytes": 929,
+              "sha256_12": "85691e18add1"
+            },
+            "worker.yaml": {
+              "kind": "file",
+              "bytes": 613,
+              "sha256_12": "93e6ff90432e"
+            }
+          }
+        },
+        "vercel": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1507,
+              "sha256_12": "a588c09c500e"
+            },
+            "vercel.json": {
+              "kind": "file",
+              "bytes": 1266,
+              "sha256_12": "a92ac56117be"
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1281,
+          "sha256_12": "c4805b3389e7"
+        }
+      }
+    },
+    "legal": {
+      "kind": "directory",
+      "files": 6,
+      "purpose": "Privacy inventory, cookie inventory, licence obligations, terms outline",
+      "entries": {
+        "cookies": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "COOKIE_INVENTORY.md": {
+              "kind": "file",
+              "bytes": 1314,
+              "sha256_12": "903a4b43d40f"
+            }
+          }
+        },
+        "licenses": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "THIRD_PARTY_LICENSES.md": {
+              "kind": "file",
+              "bytes": 1372,
+              "sha256_12": "7d70f66520f3"
+            }
+          }
+        },
+        "privacy": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "DATA_PROCESSING_INVENTORY.md": {
+              "kind": "file",
+              "bytes": 2613,
+              "sha256_12": "d030353bcf96"
+            },
+            "README.md": {
+              "kind": "file",
+              "bytes": 1093,
+              "sha256_12": "974565003d19"
+            }
+          }
+        },
+        "terms": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1321,
+              "sha256_12": "d3b5cd2c559a"
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1208,
+          "sha256_12": "5e3a6922cb91"
+        }
+      }
+    },
+    "marketing-seo": {
+      "kind": "directory",
+      "files": 5,
+      "purpose": "Keyword map, content calendar, GA4 catalogue, outreach rules",
+      "entries": {
+        "analytics": {
+          "kind": "directory",
+          "files": 1,
+          "purpose": "Product-metrics computation and dashboard definitions",
+          "entries": {
+            "GA4_EVENT_CATALOGUE.md": {
+              "kind": "file",
+              "bytes": 1943,
+              "sha256_12": "6710e705e36c"
+            }
+          }
+        },
+        "outreach": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1036,
+              "sha256_12": "5e54486c0e82"
+            }
+          }
+        },
+        "CONTENT_CALENDAR.md": {
+          "kind": "file",
+          "bytes": 1544,
+          "sha256_12": "1cba76e1322f"
+        },
+        "KEYWORD_MAP.md": {
+          "kind": "file",
+          "bytes": 2238,
+          "sha256_12": "54f39f2b8e39"
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1309,
+          "sha256_12": "24521029cd26"
+        }
+      }
+    },
+    "reports": {
+      "kind": "directory",
+      "files": 4,
+      "purpose": "Report definitions (no generated data)",
+      "entries": {
+        "annual": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "ANNUAL_RETROSPECTIVE.md": {
+              "kind": "file",
+              "bytes": 845,
+              "sha256_12": "481db825e91d"
+            }
+          }
+        },
+        "archive": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 422,
+              "sha256_12": "fc73ee2229dc"
+            }
+          }
+        },
+        "monthly": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "MONTHLY_REVIEW.md": {
+              "kind": "file",
+              "bytes": 1256,
+              "sha256_12": "9174bda47b6b"
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1086,
+          "sha256_12": "0056b67cdd59"
+        }
+      }
+    },
+    "scripts": {
+      "kind": "directory",
+      "files": 4,
+      "purpose": "Quality-gate runner and maintenance/backup tooling",
+      "entries": {
+        "maintenance": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1052,
+              "sha256_12": "c34c42c51b70"
+            },
+            "backup.sh": {
+              "kind": "file",
+              "bytes": 3731,
+              "sha256_12": "70af55a428f0"
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1242,
+          "sha256_12": "3e483e470172"
+        },
+        "verify.sh": {
+          "kind": "file",
+          "bytes": 3175,
+          "sha256_12": "cc4ccd93d954"
+        }
+      }
+    },
+    "security": {
+      "kind": "directory",
+      "files": 7,
+      "purpose": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
+      "entries": {
+        "AUDIT_EVENTS.md": {
+          "kind": "file",
+          "bytes": 2201,
+          "sha256_12": "016923155e91"
+        },
+        "BACKUP_AND_RECOVERY.md": {
+          "kind": "file",
+          "bytes": 1659,
+          "sha256_12": "690975ba31f3"
+        },
+        "INPUT_VALIDATION.md": {
+          "kind": "file",
+          "bytes": 1933,
+          "sha256_12": "9b77a04abfb9"
+        },
+        "RATE_LIMITING.md": {
+          "kind": "file",
+          "bytes": 1881,
+          "sha256_12": "6c7556d5aa60"
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1455,
+          "sha256_12": "6e5693831dbf"
+        },
+        "SECRETS_MANAGEMENT.md": {
+          "kind": "file",
+          "bytes": 2116,
+          "sha256_12": "27135a97f7aa"
+        },
+        "SPAM_PROTECTION.md": {
+          "kind": "file",
+          "bytes": 1829,
+          "sha256_12": "e81bb54f622f"
+        }
+      }
+    },
+    "tests": {
+      "kind": "directory",
+      "files": 5,
+      "purpose": "E2E, performance and security test specifications",
+      "entries": {
+        "e2e": {
+          "kind": "directory",
+          "files": 1,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1627,
+              "sha256_12": "05b4561db1a9"
+            }
+          }
+        },
+        "performance": {
+          "kind": "directory",
+          "files": 2,
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 1133,
+              "sha256_12": "9011a8c95789"
+            },
+            "load.k6.js": {
+              "kind": "file",
+              "bytes": 2788,
+              "sha256_12": "fd7fff8ee102"
+            }
+          }
+        },
+        "security": {
+          "kind": "directory",
+          "files": 1,
+          "purpose": "Rate limiting, spam, validation, audit, secrets, backup policy artefacts",
+          "entries": {
+            "README.md": {
+              "kind": "file",
+              "bytes": 2320,
+              "sha256_12": "333c821f2323"
+            }
+          }
+        },
+        "README.md": {
+          "kind": "file",
+          "bytes": 1295,
+          "sha256_12": "384dfb2d334e"
+        }
+      }
+    },
+    ".env.example": {
+      "kind": "file",
+      "bytes": 4881,
+      "sha256_12": "d938bc9cd61a"
+    },
+    ".gitignore": {
+      "kind": "file",
+      "bytes": 980,
+      "sha256_12": "5bb138905f94"
+    },
+    "ARCHITECTURE.md": {
+      "kind": "file",
+      "bytes": 6922,
+      "sha256_12": "ab2a2b30c9d7"
+    },
+    "CHANGELOG.md": {
+      "kind": "file",
+      "bytes": 5838,
+      "sha256_12": "7247632fe109"
+    },
+    "CONTRIBUTING.md": {
+      "kind": "file",
+      "bytes": 3889,
+      "sha256_12": "f6d3bdcc25fc"
+    },
+    "Dockerfile": {
+      "kind": "file",
+      "bytes": 2346,
+      "sha256_12": "51fbdd0c1ee3"
+    },
+    "FILES_TO_IMPLEMENT.md": {
+      "kind": "file",
+      "bytes": 5369,
+      "sha256_12": "a3693f48fe8c"
+    },
+    "LICENSE": {
+      "kind": "file",
+      "bytes": 1475,
+      "sha256_12": "077b8c66716e"
+    },
+    "MIGRATION_MAP.md": {
+      "kind": "file",
+      "bytes": 7337,
+      "sha256_12": "fa7212fce45b"
+    },
+    "PRD.md": {
+      "kind": "file",
+      "bytes": 13476,
+      "sha256_12": "41df0accb35d"
+    },
+    "PROJECT_BLUEPRINT.md": {
+      "kind": "file",
+      "bytes": 7328,
+      "sha256_12": "caddfe6eb991"
+    },
+    "README.md": {
+      "kind": "file",
+      "bytes": 15047,
+      "sha256_12": "75cb552da383"
+    },
+    "ROADMAP.md": {
+      "kind": "file",
+      "bytes": 4422,
+      "sha256_12": "5691ca4160a6"
+    },
+    "docker-compose.yml": {
+      "kind": "file",
+      "bytes": 3865,
+      "sha256_12": "8c2e2108c995"
+    },
+    "package.json": {
+      "kind": "file",
+      "bytes": 1622,
+      "sha256_12": "2082ced169f6"
+    }
+  },
+  "fileCount": 216,
+  "verified": {
+    "jsonParsed": 3,
+    "yamlParsed": 4,
+    "pythonCompiled": 30,
+    "bashSyntaxChecked": 2,
+    "jsSyntaxChecked": "load.k6.js",
+    "pytest": "15 passed (backend/, httpx ASGI transport, no network)",
+    "markdownInternalLinks": "0 broken",
+    "secretScan": "clean (no private keys/tokens; only intentionally public NEXT_PUBLIC_* names)",
+    "excluded": [
+      "node_modules",
+      ".next",
+      "dist",
+      "caches",
+      ".env* (except .env.example)",
+      "store.json",
+      "backups"
+    ]
+  }
+}

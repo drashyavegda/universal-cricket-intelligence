@@ -1,0 +1,19 @@
+# Render blueprint TEMPLATE — background worker (phase 4).
+# NOT deployable today: there is no job queue, so the worker idles by design. It exists so that
+# phase 4 has a reviewed target instead of an improvised one.
+services:
+  - type: worker
+    name: ucip-worker
+    runtime: python
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m background_workers.worker
+    envVars:
+      - key: BACKEND_ENV
+        value: production
+      - key: WORKER_POLL_SECONDS
+        value: "15"
+      - key: DATABASE_URL
+        sync: false

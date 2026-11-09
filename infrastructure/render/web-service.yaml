@@ -1,0 +1,36 @@
+# Render blueprint TEMPLATE — Next.js web service.
+# The ACTIVE blueprint is /render.yaml at the repository root. Do not overwrite it.
+services:
+  - type: web
+    name: ucip-web
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: .
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "20.20.2"
+      - key: NEXT_PUBLIC_SITE_URL
+        sync: false
+      - key: REFERENCE_DATE
+        value: "2027-04-01"
+      - key: DATA_DIR
+        value: /var/data
+      - key: DB_ADAPTER
+        value: json
+      - key: ANALYTICS_SERVICE_URL
+        sync: false
+      - key: ANALYTICS_SERVICE_TOKEN
+        sync: false
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_MONTHLY_BUDGET_USD
+        value: "20"
+    disk:
+      name: ucip-data
+      mountPath: /var/data
+      sizeGB: 1
